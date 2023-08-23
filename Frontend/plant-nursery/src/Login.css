@@ -1,0 +1,54 @@
+.background-radial-gradient {
+    background-color: #D6E4C8; /* Light green background color */
+    background-image: radial-gradient(650px circle at 0% 0%,
+        #B0D888 15%, /* Lighter green shade */
+        #8EBF69 35%, /* Light green shade */
+        #72A653 75%, /* Even lighter green shade */
+        #619746 80%, /* Lightest green shade */
+        transparent 100%),
+      radial-gradient(1250px circle at 100% 100%,
+        #B0D888 15%, /* Lighter green shade */
+        #8EBF69 35%, /* Light green shade */
+        #72A653 75%, /* Even lighter green shade */
+        #619746 80%, /* Lightest green shade */
+        transparent 100%);
+  }
+  
+  .bg-glass {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(150%) blur(15px); /* Slightly reduced blur for glass effect */
+  }
+  
+  .login-card {
+    width: 25em;
+    height: 30em;
+    margin-top: -50px;
+    margin-left: 5em;
+    border-radius: 25px;
+  }
+
+  .gif-button{
+    background-color: #149253;
+    color: white;
+    width: 145px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+
+.gif-button:hover{
+    background-color: #107442;
+    transform: scale(1.01);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+  .background-radial-gradient {
+    /* height: 95vh; */
+  }
+
+  .row{
+    display: flex;
+  }
+
+  .form-outline{
+    padding-bottom: 10px;
+  }
