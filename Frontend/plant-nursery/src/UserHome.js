@@ -3,14 +3,14 @@ import CarouselComp from './CarouselComp'
 import CardsHome from './CardsHome'
 import Navbar from './Navbar'
 
-const Home = () => {
+const UserHome = () => {
   return (
     <div>
+        heloo user
       <Navbar/>
       <CarouselComp/>
-      <CardsHome/>
     </div>
   )
 }
 
-export default Home
+export default UserHome

@@ -7,6 +7,7 @@ import UserRoutes from "./routes/UserRoutes";
 import StaffRoutes from "./routes/StaffRoutes";
 import Login from "./Login";
 import Register from "./Register";
+import AppRouter from "./AppRouter";
 
 function App() {
   const [userRole, setUserRole] = useState("user");
@@ -20,14 +21,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path="/login" element={<Login setRole={handleLogin} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {userRole === "user" && <Route path="/" element={<UserRoutes />} />}
-          {userRole === "staff" && <Route path="/" element={<StaffRoutes />} />}
         </Routes>
+        <AppRouter />
       </BrowserRouter>
     </div>
   );

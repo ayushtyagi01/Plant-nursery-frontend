@@ -1,52 +1,69 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "./services/LoginService";
+import Navbar from "./Navbar";
+// import { userLogin } from "./services/LoginService";
 
-const Login = ({ setRole }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
-    role: "user", 
   });
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
-  function handleChange(event){
-    const {name, value} = event.target;
-    setLoginData(()=> ({   //(prevData)=> ({...prevData,[name]:value})
-        ...loginData,
-        [name] : value,
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setLoginData(() => ({
+      //(prevData)=> ({...prevData,[name]:value})
+      ...loginData,
+      [name]: value,
     }));
   }
-  console.log("loginnnnnnnn",loginData);
-
+  console.log("loginnnnnnnn", loginData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
 
     try {
-      const userData = await userLogin(loginData);
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
 
-      if (userData) {
-        // Successful login
-        // Do something with userData or navigate to a new route
-        // For example, navigate("/dashboard");
-        setRole(userData.role);
+      if (response.ok) {
+        const userData = await response.json();
+        localStorage.setItem("userData", JSON.stringify(userData));
+        console.log(userData);
+        if (userData.role === "ROLE_USER") {
+          navigate("/userHome");
+        } else if (userData.role === "ROLE_STAFF") {
+          navigate("/staffHome");
+        } else if (userData.role === "ROLE_ADMIN") {
+          navigate("/adminHome");
+        } else {
+          // Handle unknown role
+          console.error("Unknown role:", userData.role);
+        }
+        // setRole(userData.role);
       } else {
-        // Handle login error
         console.error("Login failed");
       }
     } catch (error) {
       console.error("An error occurred:", error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
 
   return (
+    <>
+    <Navbar/>
     <section className="background-radial-gradient overflow-hidden">
       <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 mb-5">
@@ -94,16 +111,16 @@ const Login = ({ setRole }) => {
                   />
                 </div>
 
-                <div className="form-outline mb-4">
+                {/* <div className="form-outline mb-4">
                   <select className="form-select" name="role" onChange={(e) => handleChange(e)}>
                     <option value="user">User</option>
                     <option value="staff">Staff</option>
                     <option value="admin">Admin</option>
                   </select>
-                </div>
+                </div> */}
 
                 <button type="submit" className="gif-button" disabled={loading}>
-                {loading ? "Logging in..." : "Login"}
+                  {loading ? "Logging in..." : "Login"}
                 </button>
               </form>
               <br />
@@ -127,6 +144,7 @@ const Login = ({ setRole }) => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
