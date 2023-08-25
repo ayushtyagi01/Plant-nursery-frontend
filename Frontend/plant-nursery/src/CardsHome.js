@@ -22,7 +22,7 @@ const CardsHome = () => {
           alt="icon"
           width={40}
         />
-        <h2 style={{ fontWeight: "bold" }}>Featured Plants</h2>
+        <h1 style={{ fontWeight: "bold", fontSize: '35px' }}>Featured Plants</h1>
       </div>
       <div className="card-row">
         {plantsData.map((plant, index) => (

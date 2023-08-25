@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./Navbar";
 import Home from "./Home";
-import UserRoutes from "./routes/UserRoutes";
-import StaffRoutes from "./routes/StaffRoutes";
 import Login from "./Login";
 import Register from "./Register";
 import AppRouter from "./AppRouter";
@@ -12,9 +9,12 @@ import AppRouter from "./AppRouter";
 function App() {
   const [userRole, setUserRole] = useState("user");
 
-  const handleLogin = (role) => {
-    setUserRole(role);
-  };
+  // useEffect(() => {
+  //   const userData = JSON.parse(localStorage.getItem("userData"));
+  //   if (userData) {
+  //     setUserRole(userData.role);
+  //   }
+  // }, []);
 
   console.log("role setttt---->", userRole);
 
@@ -23,10 +23,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setRole={setUserRole} />} />
+          <Route path="/register" element={<Register setRole={setUserRole}/>} />
         </Routes>
-        <AppRouter />
+        {userRole !== null && <AppRouter userRole={userRole} />}
       </BrowserRouter>
     </div>
   );

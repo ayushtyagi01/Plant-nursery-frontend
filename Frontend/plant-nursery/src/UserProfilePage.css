@@ -1,0 +1,41 @@
+/* UserProfilePage.css */
+
+
+.side-navbar {
+    background-color: #fff; 
+    width: 370px;
+    height: 100vh;
+    border-right: 1px solid  #bebcbc; /* Vertical border */
+    /* box-sizing: border-box; */
+  }
+  .side-navbar table {
+    width: 100%;
+  }
+  
+  .side-navbar td {
+    padding: 24px 20px;
+    border-bottom: 1px solid #bebcbc;
+    display: block;
+  }
+  
+  .side-navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+    display: block;
+  }
+    
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .side-navbar td.selected {
+    border-right: 7px solid green;
+  }
+
+  .page-container{
+    display: flex;
+  }
+  

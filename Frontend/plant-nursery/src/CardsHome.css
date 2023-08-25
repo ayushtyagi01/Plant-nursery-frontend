@@ -1,3 +1,4 @@
+
 @keyframes slideInFromLeft {
     from {
       transform: translateX(-100%);
@@ -26,17 +27,17 @@
     align-items: center;
     text-align: center;
     padding: 40px 0;
-    animation: slideInFromLeft 6s ease-out forwards;
-    animation-delay: 3s; 
+    animation: slideInFromLeft 7s ease-out forwards;
+    /* animation-delay: 3s;  */
 }
 
 .intro-section::after {
     content: "";
-    background-image: url("https://www.pngmart.com/files/22/Plant-PNG-Isolated-HD.png"); /* Replace with the actual path */
+    background-image: url("https://www.pngmart.com/files/22/Plant-PNG-Isolated-HD.png"); 
     background-repeat: no-repeat;
     background-size:cover; 
-    width: 400px; /* Adjust the width */
-    height: 300px; /* Adjust the height */
+    width: 400px; 
+    height: 300px; 
     position: absolute;
     top: 0;
     right: 0;
@@ -109,6 +110,7 @@
 .gif-div{
     display: flex;
     align-items: center;
+    margin-top: 65px;
 }
 
 .gif-items{

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
+import StaffHome from '../pages/StaffPages/StaffHome';
 
-import CarouselComp from '../CarouselComp';
 
 const StaffRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route exact path="/" element={<CarouselComp />}/>
+        <Route path="/staffHome" element={<StaffHome />}/>
 
       </Routes>
     </div>
