@@ -7,9 +7,9 @@ const CardsHome = () => {
     <div>
       <div className="intro-section">
         <h2 className="section-heading">Welcome to Plant Nursery</h2>
-        <h4 style={{ fontWeight: "bold" }}>
+        <h1 style={{ fontWeight: "bold", fontSize:'1.44em', color:"#1D965A" }}>
           "Experience the magic of growing plants"
-        </h4>
+        </h1>
         <p className="section-text">
           Explore our wide range of plants, flowers, and gardening supplies.
           Whether you're an experienced gardener or just starting out, we have

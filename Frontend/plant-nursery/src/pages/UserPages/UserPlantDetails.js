@@ -3,12 +3,14 @@ import "../../UserPlantDetails.css";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserCart from "./UserCart";
+import UserNavbar from "./UserNavbar";
 
-const UserPlantDetails = ({ setCartItemCount }) => {
+const UserPlantDetails = ({ setCartItemCount, cartVisible, cartItemCount, onClose }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userId = userData.id;
 
-  console.log("getting data from plant details --->", userId);
+  console.log("getting data from plant details --->", userData  );
 
   const { id } = useParams();
   const [plant, setPlant] = useState();
@@ -64,7 +66,7 @@ const UserPlantDetails = ({ setCartItemCount }) => {
 
   return (
     <div>
-      <ToastContainer theme="light" autoClose={2900} hideProgressBar/>
+      <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       {/* <div className="user-plant-details-container">     */}
       <div className="plant-details-content">
         <div className="image-container">
@@ -118,6 +120,7 @@ const UserPlantDetails = ({ setCartItemCount }) => {
         </div>
       </div>
       {/* </div> */}
+      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
     </div>
   );
 };

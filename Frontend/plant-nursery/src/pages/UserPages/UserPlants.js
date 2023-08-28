@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../../UserPlants.scss";
-import UserNavbar from "./UserNavbar";
 import { useNavigate } from "react-router-dom";
+import UserNavbar from "./UserNavbar";
+import UserCart from "./UserCart";
 
-const UserPlants = () => {
+const UserPlants = ({setCartItemCount, cartVisible, cartItemCount, onClose}) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [plantData, setPlantData] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState("");
@@ -92,6 +93,7 @@ const UserPlants = () => {
           ))}
         </div>
       </div>
+      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
     </div>
   );
 };

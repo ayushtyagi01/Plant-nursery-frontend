@@ -14,7 +14,7 @@ const plantsData = [
   {
     name: "Lush Ferns",
     description:
-      "Bring a touch of lush greenery to your indoor spaces with our lush ferns. Ferns thrive in low light conditions and add a refreshing atmosphere to any room. They're great natural air purifiers and contribute to a healthier living environment.",
+      "Bring a touch of lush greenery to your indoor spaces with our lush ferns. Ferns thrive in low light conditions and add a refreshing atmosphere. They contribute to a healthier living environment.",
     image: "https://cdn.igp.com/f_auto,q_auto,t_pnopt12prodlp/products/p-serene-jade-plant-in-a-ceramic-buddha-planter-196620-m.jpg",
   },
   {
