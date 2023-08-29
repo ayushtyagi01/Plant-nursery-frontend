@@ -6,11 +6,16 @@ import "react-toastify/dist/ReactToastify.css";
 import UserCart from "./UserCart";
 import UserNavbar from "./UserNavbar";
 
-const UserPlantDetails = ({ setCartItemCount, cartVisible, cartItemCount, onClose }) => {
+const UserPlantDetails = ({
+  setCartItemCount,
+  cartVisible,
+  cartItemCount,
+  onClose,
+}) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userId = userData.id;
 
-  console.log("getting data from plant details --->", userData  );
+  console.log("getting data from plant details --->", userData);
 
   const { id } = useParams();
   const [plant, setPlant] = useState();
@@ -119,8 +124,23 @@ const UserPlantDetails = ({ setCartItemCount, cartVisible, cartItemCount, onClos
           </div>
         </div>
       </div>
-      {/* </div> */}
-      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
+      <div className="about-container">
+        <div className="about-plant-container">
+          <div className="about-plant-items">
+            <div>
+              <h2 className="about-plant-heading">About the Plant</h2>
+              <p className="about-plant-text">{plant?.description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {cartVisible && (
+        <UserCart
+          cartItemCount={cartItemCount}
+          setCartItemCount={setCartItemCount}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };

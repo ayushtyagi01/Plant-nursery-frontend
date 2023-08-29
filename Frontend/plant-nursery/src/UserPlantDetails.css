@@ -40,6 +40,8 @@
     margin-right: 80px;
     opacity: 0;
     animation: fadeIn 0.5s ease-in-out forwards;
+    background-color: #EFF8F2;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
 
   }
   
@@ -154,6 +156,29 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
+
+
+  .about-container{
+    background-color: #EFF8F2;
+  }
+  
+  .about-plant-container{
+    margin-top: 60px;
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-bottom: 50px;
+    padding-top: 55px;
+    padding-bottom: 65px;
+  }
+
+  .about-plant-heading {
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 15px;
+    text-align: center;
+
+  }
+
   
 
       

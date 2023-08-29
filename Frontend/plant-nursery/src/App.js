@@ -9,22 +9,32 @@ import AppRouter from "./AppRouter";
 import Navbar from "./Navbar";
 
 function App() {
-  const [userRole, setUserRole] = useState("user");
+  const [userRole, setUserRole] = useState(null);
+
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")) || null);
 
   // useEffect(() => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  // const userData = JSON.parse(localStorage.getItem("userData"));
   //   if (userData) {
   //     setUserRole(userData.role);
   //   }
   // }, []);
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (storedUserData) {
+      setUserData(storedUserData);
+      setUserRole(storedUserData.role);
+    }
+  }, []);
 
   console.log("from homeeeee---->", userData);
 
   return (
     <div className="App">
       <BrowserRouter>
-        {!userData?.role && <Navbar />}
-
+        {!userData && <Navbar />}
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setRole={setUserRole} />} />
@@ -33,6 +43,7 @@ function App() {
             element={<Register setRole={setUserRole} />}
           />
         </Routes>
+   
         {userRole !== null && <AppRouter userRole={userRole} />}
       </BrowserRouter>
     </div>

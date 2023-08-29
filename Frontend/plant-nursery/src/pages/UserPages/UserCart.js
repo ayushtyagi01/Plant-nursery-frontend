@@ -83,6 +83,20 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
 
       if (response.ok) {
         // Clear cart or perform other actions upon successful order placement
+        const cartDeleteResponse = await fetch(
+          `http://localhost:8080/customer/deleteCart/${userId}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!cartDeleteResponse.ok) {
+          console.error("Failed to clear cart items.");
+        }
+
+        const updatedCartItemsData = [];
+        setCartItemsData(updatedCartItemsData);
+
         toast.success("🪴Order placed successfully!");
       } else {
         console.error("Failed to place order.");

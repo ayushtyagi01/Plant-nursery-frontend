@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../Navbar.css";
 import { useNavigate } from "react-router-dom";
 
 const UserNavbar = ({ cartItemCount, onCartIconClick }) => {
+  // const [cartItemsData, setCartItemsData] = useState([]);
+  // const userData = JSON.parse(localStorage.getItem("userData"));
+  // const userId = userData.id;
+
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:8080/customer/getFromCart/${userId}`
+  //       );
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setCartItemsData(data);
+  //       } else {
+  //         console.error("Failed to fetch cart items.");
+  //       }
+  //     } catch (error) {
+  //       console.error("An error occurred:", error);
+  //     }
+  //   };
+
+  //   fetchCartItems();
+  // }, []);
+
+  // console.log("lengthhhhh----->", cartItemsData.length)
+
   return (
     <div>
       <nav className="navbar navbar-fixed ">

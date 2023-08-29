@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserNavbar from "./UserNavbar";
 import "../../UserProfilePage.css";
 import { useNavigate } from "react-router-dom";
 
 const UserProfilePage = () => {
   const [selectedTab, setSelectedTab] = useState("profile");
+  const [orders, setOrders] = useState([]);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -12,9 +13,30 @@ const UserProfilePage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
-    navigate("/");
-    
+    navigate("/login");
   };
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/customer/getOrders/${userData.id}`
+        );
+        if (response.ok) {
+          const ordersData = await response.json();
+          setOrders(ordersData);
+        } else {
+          console.error("Failed to fetch orders");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+
+    if (userData) {
+      fetchOrders();
+    }
+  }, [userData]);
 
   const renderProfileContent = () => {
     return (
@@ -55,18 +77,82 @@ const UserProfilePage = () => {
               </div>
             </div>
           </div>
-          <button className="logout-button"  onClick={handleLogout}>Logout</button>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
     );
   };
 
   const renderOrdersContent = () => {
-    // Your logic to fetch and display order details in a table format
     return (
       <div>
-        <h2>Your Orders</h2>
-        {/* Add your order details table here */}
+        <h1
+          style={{
+            fontSize: "1.8em",
+            fontWeight: "bold",
+            marginBottom: "30px",
+          }}
+        >
+          Your Orders
+        </h1>
+        <div className="orders-list">
+          {orders.map((order) => (
+            <div key={order.id} className="order-card">
+              <div className="order-image">
+                <img src={order.product.imageUrl} alt="Product" />
+              </div>
+              <div className="order-details">
+                <p className="order-product-name">
+                  {order.product.productName}
+                </p>
+                <div style={{ display: "flex", gap: "60px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap:'5px' }}>
+                    <p className="order-label">Price: </p>
+                    <span className="order-value">₹{order.product.price}</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap:'5px' }}>
+                    <p className="order-label">Quantity: </p>
+                    <span className="order-value">{order.quantity}</span>
+                  </div>
+                </div>
+                <p className="order-label">Type of Delivery: </p>
+                <span className="order-value">{order.type}</span>
+                <p className="order-label">Order Status: </p>
+                <span className="order-value">{order.orderStatus} . . .</span>
+                {order.address && (
+                  <>
+                    <p className="order-label">Address: </p>
+                    <span className="order-value">{order.address}</span>
+                  </>
+                )}
+                {order.dateAndTime && (
+                  <>
+                    <p className="order-label">Date and Time: </p>
+                    <span className="order-value">{order.dateAndTime}</span>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderQueriesContent = () => {
+    return (
+      <div className="queries-container">
+        <h1
+          style={{
+            fontSize: "1.8em",
+            fontWeight: "bold",
+            marginBottom: "30px",
+          }}
+        >
+          Your Queries
+        </h1>
       </div>
     );
   };
@@ -121,12 +207,35 @@ const UserProfilePage = () => {
                   </div>
                 </td>
               </tr>
+              <tr>
+                <td
+                  className={selectedTab === "queries" ? "selected" : ""}
+                  onClick={() => setSelectedTab("queries")}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "20px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/8090/8090725.png"
+                      style={{ width: "40px" }}
+                    />
+                    <p style={{ fontWeight: "bold", fontSize: "16px" }}>
+                      Your Queries
+                    </p>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
         <div className="content">
           {selectedTab === "profile" ? renderProfileContent() : null}
           {selectedTab === "orders" ? renderOrdersContent() : null}
+          {selectedTab === "queries" ? renderQueriesContent() : null}
         </div>
       </div>
     </div>
