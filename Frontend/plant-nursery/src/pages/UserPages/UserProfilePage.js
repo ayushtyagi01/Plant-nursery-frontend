@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import UserNavbar from "./UserNavbar";
 import "../../UserProfilePage.css";
 import { useNavigate } from "react-router-dom";
+import UserCart from "./UserCart";
 
-const UserProfilePage = () => {
+const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose }) => {
   const [selectedTab, setSelectedTab] = useState("profile");
   const [orders, setOrders] = useState([]);
 
@@ -15,28 +15,6 @@ const UserProfilePage = () => {
     localStorage.removeItem("userData");
     navigate("/login");
   };
-
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/customer/getOrders/${userData.id}`
-        );
-        if (response.ok) {
-          const ordersData = await response.json();
-          setOrders(ordersData);
-        } else {
-          console.error("Failed to fetch orders");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    }
-
-    if (userData) {
-      fetchOrders();
-    }
-  }, [userData]);
 
   const renderProfileContent = () => {
     return (
@@ -85,6 +63,28 @@ const UserProfilePage = () => {
     );
   };
 
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/customer/getOrders/${userData.id}`
+        );
+        if (response.ok) {
+          const ordersData = await response.json();
+          setOrders(ordersData);
+        } else {
+          console.error("Failed to fetch orders");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+
+    if (userData) {
+      fetchOrders();
+    }
+  }, [userData]);
+
   const renderOrdersContent = () => {
     return (
       <div>
@@ -108,11 +108,23 @@ const UserProfilePage = () => {
                   {order.product.productName}
                 </p>
                 <div style={{ display: "flex", gap: "60px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap:'5px' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
                     <p className="order-label">Price: </p>
                     <span className="order-value">₹{order.product.price}</span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap:'5px' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
                     <p className="order-label">Quantity: </p>
                     <span className="order-value">{order.quantity}</span>
                   </div>
@@ -141,6 +153,76 @@ const UserProfilePage = () => {
     );
   };
 
+  const [newQuery, setNewQuery] = useState("");
+  const [queries, setQueries] = useState([]);
+  const [showQueryAns, setShowQueryAns] = useState(false);
+  const [ansButton, setAnsButton] = useState("See Answer");
+
+
+  useEffect(() => {
+    async function fetchUserQueries() {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/customer/getUserQueries/${userData.id}`
+        );
+        if (response.ok) {
+          const queriesData = await response.json();
+          setQueries(queriesData);
+        } else {
+          console.error("Failed to fetch queries");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+    if (userData) {
+      fetchUserQueries();
+    }
+  }, [userData]);
+
+  const toggleShowAns = () => {
+    setShowQueryAns(!showQueryAns);
+    if(showQueryAns){
+      setAnsButton("Show Answer")
+    }else{
+      setAnsButton("Hide Answer")
+    }
+  };
+
+  const handleQuerySubmit = async () => {
+    if (newQuery.trim() === "") {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/customer/postQuery", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: userData.id,
+          queryDesc: newQuery,
+        }),
+      });
+
+      if (response.ok) {
+        // Successfully posted query
+        // Clear the text area
+        setNewQuery("");
+        console.log("Query submitted successfully");
+      } else {
+        console.error("Failed to submit query");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  const handleQueryCancel = () => {
+    setNewQuery("");
+  };
+
   const renderQueriesContent = () => {
     return (
       <div className="queries-container">
@@ -153,6 +235,35 @@ const UserProfilePage = () => {
         >
           Your Queries
         </h1>
+        <textarea
+          className="query-textarea"
+          value={newQuery}
+          onChange={(e) => setNewQuery(e.target.value)}
+          placeholder="Type your query here..."
+        />
+        <div className="query-buttons">
+          <button className="submit-button" onClick={handleQuerySubmit}>
+            Submit
+          </button>
+          <button className="cancel-button" onClick={handleQueryCancel}>
+            Cancel
+          </button>
+        </div>
+        <div className="queries-list">
+          {queries.map((query, index) => (
+            <div key={query.id} className="query-card">
+              <p className="query-desc">{query.queryDesc}</p>
+              {query.queryStatus && (
+                <button className="see-answer-button" onClick={toggleShowAns}>
+                  {ansButton}
+                </button>
+              )}
+              {query.queryStatus && showQueryAns && (
+                <p className="query-answer">{query.queryAnswer}</p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     );
   };
@@ -238,6 +349,8 @@ const UserProfilePage = () => {
           {selectedTab === "queries" ? renderQueriesContent() : null}
         </div>
       </div>
+      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
+
     </div>
   );
 };

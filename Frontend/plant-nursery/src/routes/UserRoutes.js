@@ -59,7 +59,17 @@ const UserRoutes = () => {
               />
             }
           />
-          <Route path="/userProfile" element={<UserProfilePage />} />
+          <Route
+            path="/userProfile"
+            element={
+              <UserProfilePage
+                setCartItemCount={setCartItemCount}
+                cartVisible={cartVisible}
+                cartItemCount={cartItemCount}
+                onClose={handleCartClose}
+              />
+            }
+          />
           <Route
             path="/userPlantDetails/:id"
             element={

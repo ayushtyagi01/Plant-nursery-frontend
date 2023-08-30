@@ -1,5 +1,3 @@
-/* UserProfilePage.css */
-
 
 .side-navbar {
     background-color: #fff; 
@@ -46,7 +44,7 @@
   
 
 
-  /* UserProfilePage.css */
+  /* ---------Profile */
 
   .profile-container{
     display: flex;
@@ -113,6 +111,7 @@
 }
 
 
+/* --------Orders */
 
 .orders-list {
   display: grid;
@@ -170,5 +169,86 @@
 .order-details p {
   margin: 5px 0;
 }
+
+
+/* ------Queries */
+
+
+.query-textarea {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.query-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  margin-right: 10px;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+
+
+
+.queries-list {
+  margin-top: 40px;
+}
+
+.query-card {
+  background-color: #EFF8F2;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.query-desc {
+  font-weight: bold;
+}
+
+.see-answer-button {
+  background-color: #007bff;
+  color: white;
+  font-size: small;
+  border: none;
+  border-radius: 4px;
+  /* padding: 6px 10px; */
+  width: 100px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.query-answer {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
 
 

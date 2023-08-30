@@ -17,9 +17,10 @@ const AdminNavbar = () => {
       <nav className="navbar navbar-fixed ">
         <div className="container-fluid">
           <div className="d-flex align-items-center">
-            <a className="navbar-brand" href="#">
-              Plant Nurseryyyyyy
-            </a>
+            <img
+              src="https://see.fontimg.com/api/renderfont4/BXew/eyJyIjoiZnMiLCJoIjoxMTcsInciOjE1MDAsImZzIjo3OCwiZmdjIjoiIzBFOUYyQiIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/cHJha3JpdGk/samarkan-oblique.png"
+              width={120}
+            />
           </div>
           <div className="d-flex align-items-center">
             <img

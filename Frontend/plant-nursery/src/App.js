@@ -34,8 +34,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {!userData && <Navbar />}
-        
+
+        {/* <div style={{paddingTop:'55px'}}> */}
         <Routes>
+        
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setRole={setUserRole} />} />
           <Route
@@ -43,7 +45,8 @@ function App() {
             element={<Register setRole={setUserRole} />}
           />
         </Routes>
-   
+        {/* </div> */}
+
         {userRole !== null && <AppRouter userRole={userRole} />}
       </BrowserRouter>
     </div>

@@ -16,7 +16,6 @@ const AdminRoutes = () => {
       <div style={{paddingTop:'55px'}}>
       <Routes>
         <Route path="/adminHome" element={<AdminHome />}/>
-
       </Routes>
       </div>
     </div>

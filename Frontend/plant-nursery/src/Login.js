@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader";
 // import { userLogin } from "./services/LoginService";
 
 const Login = ({ setRole }) => {
@@ -10,7 +12,7 @@ const Login = ({ setRole }) => {
     username: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -24,9 +26,10 @@ const Login = ({ setRole }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
 
     try {
+      setIsLoading(true);
+
       const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: {
@@ -34,6 +37,8 @@ const Login = ({ setRole }) => {
         },
         body: JSON.stringify(loginData),
       });
+
+      setIsLoading(false);
 
       if (response.ok) {
         const userData = await response.json();
@@ -53,18 +58,18 @@ const Login = ({ setRole }) => {
         }
         // setRole(userData.role);
       } else {
-        console.error("Login failed");
+        toast.error("Invalid credentials");
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      setIsLoading(false);
     } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <>
-     
+    <div style={{ paddingTop: "55px" }}>
+      <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <section className="background-radial-gradient overflow-hidden">
         <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
           <div className="row gx-lg-5 mb-5">
@@ -120,14 +125,11 @@ const Login = ({ setRole }) => {
                   </select>
                 </div> */}
 
-                  <button
-                    type="submit"
-                    className="gif-button"
-                    disabled={loading}
-                  >
-                    {loading ? "Logging in..." : "Login"}
+                  <button type="submit" className="gif-button">
+                    Login
                   </button>
                 </form>
+                {isLoading && <Loader />}
                 <br />
                 <p>
                   Don't have an account?{" "}
@@ -149,7 +151,7 @@ const Login = ({ setRole }) => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

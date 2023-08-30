@@ -68,7 +68,7 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
         quantity: item.quantity,
         type:
           deliveryMethod === "home_delivery" ? "homeDelivery" : "storePickup",
-        orderStatus: 0, // Assuming 0 represents pending status
+        orderStatus: 0, 
         dateAndTime: pickupTime,
         address: address,
       }));

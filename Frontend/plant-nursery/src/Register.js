@@ -66,7 +66,7 @@ const Register = ({setRole}) => {
 
 
   return (
-    <>
+    <div style={{ paddingTop: "55px" }}>
       <Navbar />
       <section className="background-radial-gradient overflow-hidden">
         <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
@@ -90,7 +90,7 @@ const Register = ({setRole}) => {
             <div className="login-card bg-glass">
               <div className="card-body px-4 py-5 px-md-5">
                 <h3 style={{ marginBottom: "2em", fontWeight: "bold" }}>
-                  Log in
+                  Register
                 </h3>
                 <form onSubmit={handleSubmit}>
                   <div class="form-outline mb-4">
@@ -167,7 +167,7 @@ const Register = ({setRole}) => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
