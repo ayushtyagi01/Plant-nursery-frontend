@@ -126,7 +126,7 @@ const Register = ({setRole}) => {
                     />
                   </div>
 
-                  <div className="form-outline mb-4">
+                  {/* <div className="form-outline mb-4">
                     <select
                       className="form-select"
                       name="role"
@@ -136,7 +136,7 @@ const Register = ({setRole}) => {
                       <option value="staff">Staff</option>
                       <option value="admin">Admin</option>
                     </select>
-                  </div>
+                  </div> */}
 
                   <button
                     type="submit"

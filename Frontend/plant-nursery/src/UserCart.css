@@ -144,4 +144,14 @@
   color: #555;
 }
 
-  
+.total-price{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.place-order-container {
+  margin-top: 20px;
+}

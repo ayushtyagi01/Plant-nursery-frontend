@@ -4,10 +4,18 @@ import { useNavigate } from "react-router-dom";
 import UserNavbar from "./UserNavbar";
 import UserCart from "./UserCart";
 
-const UserPlants = ({setCartItemCount, cartVisible, cartItemCount, onClose}) => {
+const UserPlants = ({
+  setCartItemCount,
+  cartVisible,
+  cartItemCount,
+  onClose,
+}) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [plantData, setPlantData] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [filteredPlants, setFilteredPlants] = useState(plantData);
+  const [sortType, setSortType] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +36,27 @@ const UserPlants = ({setCartItemCount, cartVisible, cartItemCount, onClose}) => 
       .catch((error) => console.error("Error fetching plant data:", error));
   }, []);
 
-//   console.log("---> plant data", plantData);
+  useEffect(() => {
+    setFilteredPlants(
+      plantData.filter((plant) =>
+        plant.productName.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, plantData]);
+
+  useEffect(() => {
+    let sortedPlants = [...plantData];
+
+    if (sortType === "alphabetically") {
+      sortedPlants.sort((a, b) => a.productName.localeCompare(b.productName));
+    } else if (sortType === "priceLowToHigh") {
+      sortedPlants.sort((a, b) => a.price - b.price);
+    } else if (sortType === "priceHighToLow") {
+      sortedPlants.sort((a, b) => b.price - a.price);
+    }
+
+    setFilteredPlants(sortedPlants);
+  }, [sortType, plantData]);
 
   const handleClick = (plant) => {
     setSelectedPlant(plant);
@@ -55,17 +83,58 @@ const UserPlants = ({setCartItemCount, cartVisible, cartItemCount, onClose}) => 
               catalogue has the perfect plants to add nature's touch to your
               life.
               <br />
-              <span style={{fontWeight: 600 ,fontSize: "23px", color: "#149253" }}>
-              
+              <span
+                style={{ fontWeight: 600, fontSize: "23px", color: "#149253" }}
+              >
                 Happy browsing and happy planting!
-            
               </span>
             </p>
           </div>
         </div>
 
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            className="input-container"
+            style={{ width: "250px", marginLeft: "25px" }}
+          >
+            <input
+              type="text"
+              placeholder="Search for plants..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
+
+          <div
+            className="input-container"
+            style={{
+              borderRadius:'5px',
+              border: "1px solid #ccc",
+              position: "relative",
+              marginRight:'25px'
+            }}
+          >
+            <select
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+              style={{paddingTop:'10px'}}
+            >
+              <option value="">Sort by</option>
+              <option value="alphabetically">Alphabetically</option>
+              <option value="priceLowToHigh">Price - Low to High</option>
+              <option value="priceHighToLow">Price - High to Low</option>
+            </select>
+          </div>
+        </div>
+
         <div className="plant-row">
-          {plantData.map((plant, index) => (
+          {filteredPlants.map((plant, index) => (
             <div
               className="card  col-6"
               key={plant?.id}
@@ -93,7 +162,13 @@ const UserPlants = ({setCartItemCount, cartVisible, cartItemCount, onClose}) => 
           ))}
         </div>
       </div>
-      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
+      {cartVisible && (
+        <UserCart
+          cartItemCount={cartItemCount}
+          setCartItemCount={setCartItemCount}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };

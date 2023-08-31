@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../Navbar.css";
 import { useNavigate } from "react-router-dom";
 
-const UserNavbar = ({ cartItemCount, onCartIconClick }) => {
+const UserNavbar = ({ onCartIconClick }) => {
   // const [cartItemsData, setCartItemsData] = useState([]);
   // const userData = JSON.parse(localStorage.getItem("userData"));
   // const userId = userData.id;
@@ -70,9 +70,7 @@ const UserNavbar = ({ cartItemCount, onCartIconClick }) => {
                 alt="Cart Icon"
                 onClick={onCartIconClick}
               />
-              {cartItemCount > 0 && (
-                <span className="cart-badge">{cartItemCount}</span>
-              )}
+              
             </div>
           </div>
         </div>

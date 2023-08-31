@@ -3,7 +3,12 @@ import "../../UserProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import UserCart from "./UserCart";
 
-const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose }) => {
+const UserProfilePage = ({
+  setCartItemCount,
+  cartVisible,
+  cartItemCount,
+  onClose,
+}) => {
   const [selectedTab, setSelectedTab] = useState("profile");
   const [orders, setOrders] = useState([]);
 
@@ -32,13 +37,13 @@ const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose
           <div className="profile-table">
             <div className="helo-profile">
               <img
-                src="https://cdn.shopify.com/s/files/1/0579/7924/0580/files/cdn_shopify_com-profile-pic.png"
+                src="https://cdn-icons-png.flaticon.com/128/1326/1326377.png"
                 width={60}
                 alt="Profile Avatar"
                 className="profile-avatar"
               />
 
-              <p>Hello {userData.userName} !</p>
+              <p>Hello {userData.userName}!</p>
             </div>
             <div className="profile-details">
               <div className="details-container">
@@ -154,20 +159,20 @@ const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose
   };
 
   const [newQuery, setNewQuery] = useState("");
-  const [queries, setQueries] = useState([]);
-  const [showQueryAns, setShowQueryAns] = useState(false);
-  const [ansButton, setAnsButton] = useState("See Answer");
+  const [resQueries, setResQueries] = useState([]);
+  const [unresQueries, setUnresQueries] = useState([]);
 
+  const [queryType, setQueryType] = useState("unresolved");
 
   useEffect(() => {
-    async function fetchUserQueries() {
+    async function fetchUserResQueries() {
       try {
         const response = await fetch(
-          `http://localhost:8080/customer/getUserQueries/${userData.id}`
+          `http://localhost:8080/customer/getUserQueries/true/${userData.id}`
         );
         if (response.ok) {
           const queriesData = await response.json();
-          setQueries(queriesData);
+          setResQueries(queriesData);
         } else {
           console.error("Failed to fetch queries");
         }
@@ -176,18 +181,28 @@ const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose
       }
     }
     if (userData) {
-      fetchUserQueries();
+      fetchUserResQueries();
+    }
+
+    async function fetchUserUnresQueries() {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/customer/getUserQueries/false/${userData.id}`
+        );
+        if (response.ok) {
+          const queriesData = await response.json();
+          setUnresQueries(queriesData);
+        } else {
+          console.error("Failed to fetch queries");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+    if (userData) {
+      fetchUserUnresQueries();
     }
   }, [userData]);
-
-  const toggleShowAns = () => {
-    setShowQueryAns(!showQueryAns);
-    if(showQueryAns){
-      setAnsButton("Show Answer")
-    }else{
-      setAnsButton("Hide Answer")
-    }
-  };
 
   const handleQuerySubmit = async () => {
     if (newQuery.trim() === "") {
@@ -249,21 +264,60 @@ const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose
             Cancel
           </button>
         </div>
-        <div className="queries-list">
-          {queries.map((query, index) => (
-            <div key={query.id} className="query-card">
-              <p className="query-desc">{query.queryDesc}</p>
-              {query.queryStatus && (
-                <button className="see-answer-button" onClick={toggleShowAns}>
-                  {ansButton}
-                </button>
-              )}
-              {query.queryStatus && showQueryAns && (
-                <p className="query-answer">{query.queryAnswer}</p>
-              )}
-            </div>
-          ))}
+
+        <div className="query-dropdown">
+          <select
+            value={queryType}
+            onChange={(e) => setQueryType(e.target.value)}
+            className="query-dropdown-select"
+          >
+            <option value="unresolved">Unresolved</option>
+            <option value="resolved">Resolved</option>
+          </select>
         </div>
+
+        {queryType === "resolved" ? (
+          <div className="queries-list">
+            {resQueries.map((query, index) => (
+              <div key={query.id} className="query-card">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <p className="query-desc">{query.queryDesc}</p>
+                  </div>
+                  <div>
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/1838/1838326.png"
+                      width={40}
+                    />
+                  </div>
+                </div>
+                <p className="query-answer">{query.queryAnswer}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="queries-list">
+            {unresQueries.map((query, index) => (
+              <div key={query.id} className="query-card">
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <p className="query-desc">{query.queryDesc}</p>
+                  </div>
+                  <div>
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/3286/3286253.png"
+                      width={40}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   };
@@ -349,8 +403,13 @@ const UserProfilePage = ({ setCartItemCount, cartVisible, cartItemCount, onClose
           {selectedTab === "queries" ? renderQueriesContent() : null}
         </div>
       </div>
-      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
-
+      {cartVisible && (
+        <UserCart
+          cartItemCount={cartItemCount}
+          setCartItemCount={setCartItemCount}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };

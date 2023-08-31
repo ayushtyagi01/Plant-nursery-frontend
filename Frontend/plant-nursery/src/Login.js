@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./Loader";
-// import { userLogin } from "./services/LoginService";
+import Navbar from "./Navbar";
 
 const Login = ({ setRole }) => {
   const navigate = useNavigate();
@@ -68,6 +68,8 @@ const Login = ({ setRole }) => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div style={{ paddingTop: "55px" }}>
       <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <section className="background-radial-gradient overflow-hidden">
@@ -152,6 +154,7 @@ const Login = ({ setRole }) => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

@@ -68,7 +68,7 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
         quantity: item.quantity,
         type:
           deliveryMethod === "home_delivery" ? "homeDelivery" : "storePickup",
-        orderStatus: 0, 
+        orderStatus: 0,
         dateAndTime: pickupTime,
         address: address,
       }));
@@ -106,8 +106,21 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
     }
   };
 
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartItemsData.forEach((item) => {
+      totalPrice += item.product.price * item.quantity;
+    });
+    return totalPrice;
+  };
+
+  const getPlantPrice = (item) => {
+    return item.product.price * item.quantity;
+  };
+
   return (
     <div>
+      <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <div className="user-cart-container open">
         <div className="cart-header">
           <h2>Your Cart</h2>
@@ -142,7 +155,14 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
                     </div>
                   </div>
                   <p>Price: ₹{item.product.price}</p>
-                  <p>Quantity: {item.quantity}</p>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <p>Quantity: {item.quantity}</p>
+                    <p style={{ color: "#149253", fontSize: "20px" }}>
+                      ₹{getPlantPrice(item)}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -177,8 +197,9 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
                   <textarea
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    rows={4} // Adjust the number of rows as needed
+                    rows={4}
                     placeholder="Enter your delivery address..."
+                    style={{ padding: "5px", border: "1px solid #ccc" }}
                   />
                 </div>
               )}
@@ -193,10 +214,23 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
                 </div>
               )}
             </div>
-            <div className="order-button-container">
-              <button className="place-order-button" onClick={handlePlaceOrder}>
-                Place Order
-              </button>
+            <div className="place-order-container">
+              <div
+                className="total-price"
+                style={{ paddingTop: "10px", borderTop: "1px solid #ccc" }}
+              >
+                <p>Sub Total</p>
+                <p style={{ color: "#149253" }}>₹{getTotalPrice()}</p>
+              </div>
+
+              <div className="order-button-container">
+                <button
+                  className="place-order-button"
+                  onClick={handlePlaceOrder}
+                >
+                  Place Order
+                </button>
+              </div>
             </div>
           </div>
         )}
