@@ -12,6 +12,52 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
   const [address, setAddress] = useState("");
   const [pickupTime, setPickupTime] = useState("");
 
+  const loadScript = (src) => {
+    return new Promise((resovle) => {
+      const script = document.createElement("script");
+      script.src = src;
+
+      script.onload = () => {
+        resovle(true);
+      };
+
+      script.onerror = () => {
+        resovle(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+  const displayRazorpay = async (amount) => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("You are offline... Failed to load Razorpay SDK");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_1eS0s8UWTe9qNR",
+      currency: "INR",
+      amount: amount * 100,
+      name: "Prakriti",
+      description: "Thanks for purchasing",
+      image:
+        "https://see.fontimg.com/api/renderfont4/BXew/eyJyIjoiZnMiLCJoIjoxMTcsInciOjE1MDAsImZzIjo3OCwiZmdjIjoiIzBFOUYyQiIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/cHJha3JpdGk/samarkan-oblique.png",
+
+      handler: function (response) {
+        handlePlaceOrder();
+      },
+      prefill: {
+        name: "Anusha",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -226,7 +272,7 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
               <div className="order-button-container">
                 <button
                   className="place-order-button"
-                  onClick={handlePlaceOrder}
+                  onClick={() => displayRazorpay(getTotalPrice())}
                 >
                   Place Order
                 </button>

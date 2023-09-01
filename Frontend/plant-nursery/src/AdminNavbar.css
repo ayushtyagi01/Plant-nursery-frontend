@@ -29,3 +29,8 @@
 .dropdown-item:hover {
     background-color: #e4e4e4;
 }
+
+
+.profile-image:hover{
+    transform: scale(1.09);
+  }

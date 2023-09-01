@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import ScrollToTop from "./ScrollToTop";
 // import { userLogin } from "./services/LoginService";
 
-const Register = ({setRole}) => {
+const Register = ({ setRole }) => {
   const navigate = useNavigate();
   const [signupData, setSignupData] = useState({
     userName: "",
@@ -37,7 +38,7 @@ const Register = ({setRole}) => {
         body: JSON.stringify(signupData),
       });
 
-     if (response.ok) {
+      if (response.ok) {
         const userData = await response.json();
         localStorage.setItem("userData", JSON.stringify(userData));
         setRole(userData.role);
@@ -64,9 +65,9 @@ const Register = ({setRole}) => {
     }
   };
 
-
   return (
     <div style={{ paddingTop: "55px" }}>
+      <ScrollToTop />
       <Navbar />
       <section className="background-radial-gradient overflow-hidden">
         <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
@@ -76,11 +77,11 @@ const Register = ({setRole}) => {
                 className="my-5 display-5 fw-bold ls-tight"
                 style={{ color: "hsl(218, 81%, 95%)" }}
               >
-                Welcome to Plant Nursery <br />
+                Welcome to  <span style={{ color: "#0E6840",textShadow: "4px 4px 6px rgba(255, 255, 255, 0.5)" }}>Plant Nursery</span> <br />
               </h1>
               <p
                 className="mb-4 opacity-70"
-                style={{ color: "hsl(218, 81%, 95%)" }}
+                style={{ color: 'white', textShadow: "2px 2px 4px rgba(0, 0, 0, 0.4)" }}
               >
                 Explore our wide range of plants and gardening supplies. Log in
                 to get started with your plant-growing journey!
@@ -89,7 +90,13 @@ const Register = ({setRole}) => {
 
             <div className="login-card bg-glass">
               <div className="card-body px-4 py-5 px-md-5">
-                <h3 style={{ marginBottom: "2em", fontWeight: "bold" }}>
+                <h3 style={{
+                      marginBottom: "2em",
+                      fontWeight: "bold",
+                      fontSize: "30px",
+                      color: "#0E6840",
+                      textShadow: "4px 4px 6px rgba(0, 0, 0, 0.3)" 
+                    }}>
                   Register
                 </h3>
                 <form onSubmit={handleSubmit}>

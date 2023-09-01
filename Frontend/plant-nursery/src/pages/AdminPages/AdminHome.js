@@ -4,6 +4,7 @@ import "../../AdminAddStaffModal.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../Loader";
+import ScrollToTop from "../../ScrollToTop";
 
 const AdminHome = () => {
   const [staffList, setStaffList] = useState([]);
@@ -119,6 +120,7 @@ const AdminHome = () => {
 
   return (
     <div className="admin-home-container">
+      <ScrollToTop/>
       <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <img

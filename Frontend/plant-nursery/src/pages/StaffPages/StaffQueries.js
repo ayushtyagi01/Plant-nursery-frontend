@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ScrollToTop from "../../ScrollToTop";
 
 const StaffQueries = () => {
   const [queries, setQueries] = useState([]);
@@ -56,6 +57,7 @@ const StaffQueries = () => {
 
   return (
     <div>
+      <ScrollToTop/>
       <div className="staffPlant-container">
         <div
           style={{
@@ -76,7 +78,9 @@ const StaffQueries = () => {
           {queries.map((query, index) => (
             <div key={query.id} className="query-card">
               {query.queryStatus ? (
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <p className="query-desc">{query.queryDesc}</p>
                   </div>

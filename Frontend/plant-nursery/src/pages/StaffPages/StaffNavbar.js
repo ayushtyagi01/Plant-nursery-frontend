@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../AdminNavbar.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const StaffNavbar = () => {
+const StaffNavbar = ({ setRole }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [resetPassword, setResetPassword] = useState("");
   const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] =
@@ -12,10 +12,12 @@ const StaffNavbar = () => {
   const [isResetPasswordLoading, setIsResetPasswordLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
     setIsDropdownOpen(false);
+    setRole(null);
     navigate("/login");
   };
 
@@ -74,22 +76,23 @@ const StaffNavbar = () => {
             />
             <div className="navBar-nav">
               <a
-                className="nav-link active"
+                className={`nav-link ${location.pathname === "/staffHome" ? "active" : ""}`}
                 aria-current="page"
                 href="/staffHome"
               >
                 Plants
               </a>
-              <a className="nav-link" href="/staffOrders">
+              <a className={`nav-link ${location.pathname === "/staffOrders" ? "active" : ""}`} href="/staffOrders">
                 Orders
               </a>
-              <a className="nav-link" href="/staffQueries">
+              <a className={`nav-link ${location.pathname === "/staffQueries" ? "active" : ""}`} href="/staffQueries">
                 Queries
               </a>
             </div>
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ">
             <img
+            className="profile-image"
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}
               alt="Profile Icon"

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../../UserProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import UserCart from "./UserCart";
+import ScrollToTop from "../../ScrollToTop";
 
 const UserProfilePage = ({
   setCartItemCount,
   cartVisible,
   cartItemCount,
   onClose,
+  setRole
 }) => {
   const [selectedTab, setSelectedTab] = useState("profile");
   const [orders, setOrders] = useState([]);
@@ -18,6 +20,7 @@ const UserProfilePage = ({
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
+    setRole(null);
     navigate("/login");
   };
 
@@ -324,6 +327,7 @@ const UserProfilePage = ({
 
   return (
     <div>
+      <ScrollToTop/>
       <div className="page-container">
         <div className="side-navbar">
           <table>

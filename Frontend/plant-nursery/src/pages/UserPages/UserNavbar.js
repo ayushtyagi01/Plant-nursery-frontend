@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserNavbar = ({ onCartIconClick }) => {
   // const [cartItemsData, setCartItemsData] = useState([]);
@@ -8,6 +8,7 @@ const UserNavbar = ({ onCartIconClick }) => {
   // const userId = userData.id;
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // useEffect(() => {
   //   const fetchCartItems = async () => {
@@ -43,19 +44,20 @@ const UserNavbar = ({ onCartIconClick }) => {
 
             <div className="navBar-nav">
               <a
-                className="nav-link active"
+                className={`nav-link ${location.pathname === "/userHome" ? "active" : ""}`}
                 aria-current="page"
                 href="/userHome"
               >
                 Home
               </a>
-              <a className="nav-link" href="/userPlants">
+              <a className={`nav-link ${location.pathname === "/userPlants" ? "active" : ""}`} href="/userPlants">
                 Plants
               </a>
             </div>
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ">
             <img
+            className="profile-image"
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}
               alt="Profile Icon"
@@ -63,8 +65,9 @@ const UserNavbar = ({ onCartIconClick }) => {
                 navigate("/userProfile");
               }}
             />
-            <div className="cart-icon">
+            <div className="cart-icon ">
               <img
+              className="cart-image"
                 src="https://cdn-icons-png.flaticon.com/128/9485/9485826.png"
                 style={{ width: "30px", cursor: "pointer" }}
                 alt="Cart Icon"

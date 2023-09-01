@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../AdminNavbar.css";
 
-const AdminNavbar = () => {
+const AdminNavbar = ({setRole}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
     setIsDropdownOpen(false);
+    setRole(null);
     navigate("/login");
   };
 
@@ -22,7 +23,7 @@ const AdminNavbar = () => {
               width={120}
             />
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center profile-image">
             <img
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}

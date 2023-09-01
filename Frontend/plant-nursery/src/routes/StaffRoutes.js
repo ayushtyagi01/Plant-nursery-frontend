@@ -6,13 +6,14 @@ import StaffOrders from '../pages/StaffPages/StaffOrders';
 import StaffQueries from '../pages/StaffPages/StaffQueries';
 
 
-const StaffRoutes = () => {
+const StaffRoutes = ({setRole}) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div>
       {userData && (
         <StaffNavbar
+        setRole={setRole}
         />
       )}
       <div style={{paddingTop:'55px'}}>

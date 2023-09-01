@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./NavbarGen.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLog = () => {
     setIsDropdownOpen(false);
@@ -18,15 +19,15 @@ const Navbar = () => {
           <div className="d-flex align-items-center">
             <img src="https://see.fontimg.com/api/renderfont4/BXew/eyJyIjoiZnMiLCJoIjoxMTcsInciOjE1MDAsImZzIjo3OCwiZmdjIjoiIzBFOUYyQiIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/cHJha3JpdGk/samarkan-oblique.png" width={120}/>
             <div className="navBar-nav">
-              <a className="nav-link active" aria-current="page" href="/">
+              <a  className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" href="/">
                 Home
               </a>
-              <a className="nav-link" href="#">
-                Features
+              <a  className={`nav-link ${location.pathname === "/plants" ? "active" : ""}`} href="/plants">
+                Plants
               </a>
             </div>
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center profile-image">
             <img
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}

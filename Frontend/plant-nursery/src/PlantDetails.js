@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "../../UserPlantDetails.css";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserCart from "./UserCart";
-import UserNavbar from "./UserNavbar";
-import ScrollToTop from "../../ScrollToTop";
+import ScrollToTop from "./ScrollToTop";
 
-const UserPlantDetails = ({
-  setCartItemCount,
-  cartVisible,
-  cartItemCount,
-  onClose,
-}) => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const userId = userData.id;
-
-  console.log("getting data from plant details --->", userData);
-
+const PlantDetails = () => {
   const { id } = useParams();
   const [plant, setPlant] = useState();
   const [quantity, setQuantity] = useState(1);
+
+  console.log("the iddddd", id);
 
   useEffect(() => {
     fetch(`http://localhost:8080/getProductById/${id}`)
@@ -39,42 +28,14 @@ const UserPlantDetails = ({
     }
   };
 
-  const handleAddToCart = async () => {
-    const cartData = {
-      user: {
-        id: userId,
-      },
-      product: {
-        id: plant.id,
-      },
-      quantity: quantity,
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/customer/addToCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartData),
-      });
-
-      if (response.ok) {
-        setCartItemCount((prevCount) => prevCount + quantity);
-        toast.success("🪴Plant added to cart successfully!");
-      } else {
-        toast.info("🪴Plant already added to cart!");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
+  const handlePleaseLogin = () => {
+    toast.info("🪴Please login to order plant");
   };
 
   return (
-    <div>
-      <ScrollToTop/>
+    <div style={{paddingTop:'55px'}}>
+    <ScrollToTop/>
       <ToastContainer theme="light" autoClose={2900} hideProgressBar />
-      {/* <div className="user-plant-details-container">     */}
       <div className="plant-details-content">
         <div className="image-container">
           <img
@@ -87,7 +48,7 @@ const UserPlantDetails = ({
         <div className="plant-details">
           <div style={{ margin: "20px", marginTop: "20px" }}>
             <h1 className="plant-details-name">{plant?.productName}</h1>
-            <p className="plant-details-rating">{plant?.rating}⭐</p>
+            <p className="plant-details-rating">4.9⭐</p>
             <p className="plant-details-price">₹{plant?.price}</p>
 
             <div className="quantity-control">
@@ -119,7 +80,7 @@ const UserPlantDetails = ({
             <button
               className="add-to-cart-button"
               disabled={!plant?.stockStatus}
-              onClick={handleAddToCart}
+              onClick={handlePleaseLogin}
             >
               Add to Cart
             </button>
@@ -136,15 +97,8 @@ const UserPlantDetails = ({
           </div>
         </div>
       </div>
-      {cartVisible && (
-        <UserCart
-          cartItemCount={cartItemCount}
-          setCartItemCount={setCartItemCount}
-          onClose={onClose}
-        />
-      )}
     </div>
   );
 };
 
-export default UserPlantDetails;
+export default PlantDetails;

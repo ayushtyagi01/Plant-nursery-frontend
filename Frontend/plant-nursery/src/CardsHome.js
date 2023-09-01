@@ -1,8 +1,10 @@
 import React from "react";
 import "./CardsHome.css";
 import plantsData from "./plantsData";
+import { useNavigate } from "react-router-dom";
 
 const CardsHome = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="intro-section">
@@ -42,7 +44,7 @@ const CardsHome = () => {
           <p className="gif-text">
             Shop now and explore our collection of plants and gardening tools.
           </p>
-          <button className="gif-button">SHOP</button>
+          <button className="gif-button" onClick={()=> {navigate("/plants")}}>SHOP NOW</button>
           </div>
         </div>
       </div>

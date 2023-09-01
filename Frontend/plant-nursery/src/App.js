@@ -7,6 +7,8 @@ import Login from "./Login";
 import Register from "./Register";
 import AppRouter from "./AppRouter";
 import Navbar from "./Navbar";
+import Plants from "./Plants";
+import PlantDetails from "./PlantDetails";
 
 function App() {
   const [userRole, setUserRole] = useState(null);
@@ -33,7 +35,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {!userData && <Navbar />}
+        {/* {!userData && <Navbar />} */}
+
+        {userRole === null && <Navbar/>}
 
         {/* <div style={{paddingTop:'55px'}}> */}
         <Routes>
@@ -44,10 +48,16 @@ function App() {
             path="/register"
             element={<Register setRole={setUserRole} />}
           />
+          <Route path="/plants" element={<Plants />} />
+          <Route
+            path="/plantDetails/:id"
+            element={<PlantDetails/>}
+          />
         </Routes>
+      
         {/* </div> */}
 
-        {userRole !== null && <AppRouter userRole={userRole} />}
+        {userRole !== null && <AppRouter userRole={userRole} setRole={setUserRole}/>}
       </BrowserRouter>
     </div>
   );

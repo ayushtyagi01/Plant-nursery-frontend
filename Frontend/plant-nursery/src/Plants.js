@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../../UserPlants.scss";
 import { useNavigate } from "react-router-dom";
-import UserCart from "./UserCart";
-import ScrollToTop from "../../ScrollToTop";
+import { useSpring, animated } from "react-spring";
+import ScrollToTop from "./ScrollToTop";
 
-const UserPlants = ({
-  setCartItemCount,
-  cartVisible,
-  cartItemCount,
-  onClose,
-}) => {
+const Plants = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [plantData, setPlantData] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState("");
@@ -60,11 +54,32 @@ const UserPlants = ({
 
   const handleClick = (plant) => {
     setSelectedPlant(plant);
-    navigate(`/userPlantDetails/${plant?.id}`);
+    navigate(`/plantDetails/${plant?.id}`);
+  };
+
+  const searchBarAnimation = useSpring({
+    from: { opacity: 0, transform: "translateX(-20px)" },
+    to: { opacity: 1, transform: "translateX(0)" },
+  });
+
+  // Animation for the sort bar
+  const sortBarAnimation = useSpring({
+    from: { opacity: 0, transform: "translateX(20px)" },
+    to: { opacity: 1, transform: "translateX(0)" },
+  });
+
+  const handleSortBarHover = () => {
+    const fill = document.querySelector(".sort-bar-fill");
+    fill.style.width = "100%";
+  };
+
+  const handleSortBarLeave = () => {
+    const fill = document.querySelector(".sort-bar-fill");
+    fill.style.width = "0%";
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: "55px" }}>
       <ScrollToTop />
       <div>
         <img
@@ -100,40 +115,49 @@ const UserPlants = ({
             justifyContent: "space-between",
           }}
         >
-          
-          <div
-            className="input-container"
-            style={{ width: "250px", marginLeft: "25px" }}
-          >
-            <input
-              type="text"
-              placeholder="Search for plants..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>
-
-
-          <div
-            className="input-container"
-            style={{
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              position: "relative",
-              marginRight: "25px",
-            }}
-          >
-            <select
-              value={sortType}
-              onChange={(e) => setSortType(e.target.value)}
-              style={{ paddingTop: "10px" }}
+          <animated.div style={searchBarAnimation}>
+            <div
+              className="input-container"
+              style={{ width: "250px", marginLeft: "25px" }}
             >
-              <option value="">Sort by</option>
-              <option value="alphabetically">Alphabetically</option>
-              <option value="priceLowToHigh">Price - Low to High</option>
-              <option value="priceHighToLow">Price - High to Low</option>
-            </select>
-          </div>
+              <input
+                type="text"
+                placeholder="Search for plants..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
+          </animated.div>
+
+          <animated.div style={sortBarAnimation}>
+            <div
+              className="input-container"
+              style={{
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                position: "relative",
+                marginRight: "25px",
+              }}
+            >
+              <div className="sort-bar">
+                <div
+                  className="sort-bar-fill"
+                  onMouseOver={handleSortBarHover}
+                  onMouseLeave={handleSortBarLeave}
+                ></div>
+                <select
+                  value={sortType}
+                  onChange={(e) => setSortType(e.target.value)}
+                  style={{ paddingTop: "10px" }}
+                >
+                  <option value="">Sort by</option>
+                  <option value="alphabetically">Alphabetically</option>
+                  <option value="priceLowToHigh">Price - Low to High</option>
+                  <option value="priceHighToLow">Price - High to Low</option>
+                </select>
+              </div>
+            </div>
+          </animated.div>
         </div>
 
         <div className="plant-row">
@@ -157,7 +181,7 @@ const UserPlants = ({
               </div>
               <div className="card-plant-body">
                 <h2 className="plant-title">{plant?.productName}</h2>
-                <p className="plant-rating">4.9⭐</p>
+                <p className="plant-rating">{plant?.rating}⭐</p>
                 <h5 className="plant-price">{`₹${plant?.price}`}</h5>
                 {/* <p className="card-text">{plant.description}</p> */}
               </div>
@@ -165,15 +189,8 @@ const UserPlants = ({
           ))}
         </div>
       </div>
-      {cartVisible && (
-        <UserCart
-          cartItemCount={cartItemCount}
-          setCartItemCount={setCartItemCount}
-          onClose={onClose}
-        />
-      )}
     </div>
   );
 };
 
-export default UserPlants;
+export default Plants;

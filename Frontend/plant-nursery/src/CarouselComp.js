@@ -3,7 +3,7 @@ import { Carousel } from "react-bootstrap";
 
 const CarouselComp = () => {
   return (
-    <Carousel controls={false}>
+    <Carousel controls={false} interval={1500}>
       <Carousel.Item>
         <img
         style={{height:'90vh'}}

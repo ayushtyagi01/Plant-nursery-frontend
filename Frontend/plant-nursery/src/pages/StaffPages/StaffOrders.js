@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../StaffOrders.css";
+import ScrollToTop from "../../ScrollToTop";
 
 const orderStatusMapping = {
   PROCESSING: 0,
@@ -66,6 +67,7 @@ const StaffOrders = () => {
 
   return (
     <div>
+      <ScrollToTop />
       <div className="staffPlant-container">
         <div
           style={{
@@ -92,6 +94,32 @@ const StaffOrders = () => {
                 <p className="order-product-name">
                   {order.product.productName}
                 </p>
+
+                <p className="order-label" style={{fontWeight:'bold'}}>Customer Details: </p>
+                <div style={{ display: "flex", gap: "60px", borderBottom:'1px solid #ccc' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <p className="order-label">Name: </p>
+                    <span className="order-value">{order.user.userName}</span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <p className="order-label">Id: </p>
+                    <span className="order-value">{order.user.id}</span>
+                  </div>
+                </div>
+                
+
                 <div style={{ display: "flex", gap: "60px" }}>
                   <div
                     style={{
@@ -129,9 +157,13 @@ const StaffOrders = () => {
                   </div>
                 )}
                 <div
-                  style={{ display: "flex", paddingTop: "10px", justifyContent: "space-between"}}
+                  style={{
+                    display: "flex",
+                    paddingTop: "10px",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <p className="order-label">Order Status: </p>
+                  <p className="order-label" style={{fontWeight:'bold'}}>Order Status: </p>
                   <button
                     className="edit-button"
                     onClick={() => {
@@ -156,7 +188,7 @@ const StaffOrders = () => {
                     onChange={(e) =>
                       updateOrderStatus(order.id, e.target.value)
                     }
-                    style={{cursor:'pointer'}}
+                    style={{ cursor: "pointer" }}
                   >
                     {Object.keys(orderStatusMapping).map((status) => (
                       <option key={status} value={status}>

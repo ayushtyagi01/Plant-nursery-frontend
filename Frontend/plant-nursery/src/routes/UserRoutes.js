@@ -6,7 +6,7 @@ import UserProfilePage from "../pages/UserPages/UserProfilePage";
 import UserPlantDetails from "../pages/UserPages/UserPlantDetails";
 import UserNavbar from "../pages/UserPages/UserNavbar";
 
-const UserRoutes = () => {
+const UserRoutes = ({setRole}) => {
   // const initialCartItemCount = parseInt(localStorage.getItem("cartItemCount")) || 0;
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartVisible, setCardVisible] = useState(false);
@@ -67,6 +67,7 @@ const UserRoutes = () => {
                 cartVisible={cartVisible}
                 cartItemCount={cartItemCount}
                 onClose={handleCartClose}
+                setRole={setRole}
               />
             }
           />

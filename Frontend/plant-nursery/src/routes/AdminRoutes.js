@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminHome from '../pages/AdminPages/AdminHome';
 import AdminNavbar from '../pages/AdminPages/AdminNavbar';
 
-const AdminRoutes = () => {
+const AdminRoutes = ({setRole}) => {
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -11,6 +11,7 @@ const AdminRoutes = () => {
     <div>
       {userData && (
         <AdminNavbar
+        setRole={setRole}
         />
       )}
       <div style={{paddingTop:'55px'}}>

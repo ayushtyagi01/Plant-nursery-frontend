@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../StaffHome.scss";
 import Loader from "../../Loader";
+import ScrollToTop from "../../ScrollToTop";
 
 const StaffHome = () => {
   const [plantData, setPlantData] = useState([]);
@@ -137,7 +138,7 @@ const StaffHome = () => {
 
   return (
     <div>
-      
+      <ScrollToTop/>
       <div className="staffPlant-container">
         <div
           style={{
