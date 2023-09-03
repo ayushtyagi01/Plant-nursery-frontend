@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../UserPlants.scss";
+import "../../styles/UserPlants.scss";
 import { useNavigate } from "react-router-dom";
 import UserCart from "./UserCart";
 import ScrollToTop from "../../ScrollToTop";
@@ -30,7 +30,7 @@ const UserPlants = ({
   }, [windowWidth]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/getAllProducts")
+    fetch("http://13.50.185.10:8080/getAllProducts")
       .then((response) => response.json())
       .then((data) => setPlantData(data))
       .catch((error) => console.error("Error fetching plant data:", error));
@@ -100,7 +100,6 @@ const UserPlants = ({
             justifyContent: "space-between",
           }}
         >
-          
           <div
             className="input-container"
             style={{ width: "250px", marginLeft: "25px" }}
@@ -113,20 +112,11 @@ const UserPlants = ({
             />
           </div>
 
-
-          <div
-            className="input-container"
-            style={{
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              position: "relative",
-              marginRight: "25px",
-            }}
-          >
+          <div className="query-dropdown" style={{ marginRight: "25px" }}>
             <select
+              className="query-dropdown-select"
               value={sortType}
               onChange={(e) => setSortType(e.target.value)}
-              style={{ paddingTop: "10px" }}
             >
               <option value="">Sort by</option>
               <option value="alphabetically">Alphabetically</option>
@@ -159,7 +149,6 @@ const UserPlants = ({
                 <h2 className="plant-title">{plant?.productName}</h2>
                 <p className="plant-rating">4.9⭐</p>
                 <h5 className="plant-price">{`₹${plant?.price}`}</h5>
-                {/* <p className="card-text">{plant.description}</p> */}
               </div>
             </div>
           ))}

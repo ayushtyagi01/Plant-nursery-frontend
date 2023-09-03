@@ -21,14 +21,12 @@
   
 
 .intro-section{
-    /* background-image: url("https://www.pngmart.com/files/22/Plant-PNG-Isolated-HD.png"); */
     margin-top: 50px;
     margin-bottom: 55px;
     align-items: center;
     text-align: center;
     padding: 40px 0;
     animation: slideInFromLeft 7s ease-out forwards;
-    /* animation-delay: 3s;  */
 }
 
 .intro-section::after {

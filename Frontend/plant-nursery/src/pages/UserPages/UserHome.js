@@ -4,14 +4,24 @@ import CardsHome from "../../CardsHome";
 import UserCart from "./UserCart";
 import ScrollToTop from "../../ScrollToTop";
 
-
-const UserHome = ({ setCartItemCount, cartVisible, cartItemCount, onClose }) => {
+const UserHome = ({
+  setCartItemCount,
+  cartVisible,
+  cartItemCount,
+  onClose,
+}) => {
   return (
     <div>
-      <ScrollToTop/>
+      <ScrollToTop />
       <CarouselComp />
-      <CardsHome/>  
-      {cartVisible && (<UserCart cartItemCount={cartItemCount}  setCartItemCount={setCartItemCount} onClose={onClose}/>)}
+      <CardsHome />
+      {cartVisible && (
+        <UserCart
+          cartItemCount={cartItemCount}
+          setCartItemCount={setCartItemCount}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css";
+import "./styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,7 +31,7 @@ const Login = ({ setRole }) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("http://13.50.185.10:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,10 +54,8 @@ const Login = ({ setRole }) => {
         } else if (userData.role === "admin") {
           navigate("/adminHome");
         } else {
-          // Handle unknown role
           console.error("Unknown role:", userData.role);
         }
-        // setRole(userData.role);
       } else {
         toast.error("Invalid credentials");
       }
@@ -86,12 +84,22 @@ const Login = ({ setRole }) => {
                   }}
                 >
                   Welcome to{" "}
-                  <span style={{ color: "#0E6840",textShadow: "4px 4px 6px rgba(255, 255, 255, 0.5)" }}>Plant Nursery</span>
+                  <span
+                    style={{
+                      color: "#0E6840",
+                      textShadow: "4px 4px 6px rgba(255, 255, 255, 0.5)",
+                    }}
+                  >
+                    Prakriti
+                  </span>
                   <br />
                 </h1>
                 <p
                   className="mb-4 opacity-70"
-                  style={{ color: 'white', textShadow: "2px 2px 4px rgba(0, 0, 0, 0.4)" }}
+                  style={{
+                    color: "white",
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.4)",
+                  }}
                 >
                   Explore our wide range of plants and gardening supplies. Log
                   in to get started with your plant-growing journey!
@@ -106,7 +114,7 @@ const Login = ({ setRole }) => {
                       fontWeight: "bold",
                       fontSize: "30px",
                       color: "#0E6840",
-                      textShadow: "4px 4px 6px rgba(0, 0, 0, 0.3)" 
+                      textShadow: "4px 4px 6px rgba(0, 0, 0, 0.3)",
                     }}
                   >
                     Log in
@@ -133,14 +141,6 @@ const Login = ({ setRole }) => {
                         onChange={(e) => handleChange(e)}
                       />
                     </div>
-
-                    {/* <div className="form-outline mb-4">
-                  <select className="form-select" name="role" onChange={(e) => handleChange(e)}>
-                    <option value="user">User</option>
-                    <option value="staff">Staff</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                </div> */}
 
                     <button type="submit" className="gif-button">
                       Login

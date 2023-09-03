@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../AdminNavbar.css";
+import "../../styles/AdminNavbar.css";
 
 const AdminNavbar = ({setRole}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -23,8 +23,9 @@ const AdminNavbar = ({setRole}) => {
               width={120}
             />
           </div>
-          <div className="d-flex align-items-center profile-image">
+          <div className="d-flex align-items-center ">
             <img
+            className="profile-image"
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}
               alt="Profile Icon"

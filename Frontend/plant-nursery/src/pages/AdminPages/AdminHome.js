@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../AdminHome.css";
-import "../../AdminAddStaffModal.css";
+import "../../styles/AdminHome.css";
+import "../../styles/AdminAddStaffModal.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../Loader";
@@ -25,7 +25,7 @@ const AdminHome = () => {
     async function fetchStaffList() {
       try {
         const response = await fetch(
-          "http://localhost:8080/admin/showStaffUsersForAdmin"
+          "http://13.50.185.10:8080/admin/showStaffUsersForAdmin"
         );
         if (response.ok) {
           const staffData = await response.json();
@@ -48,9 +48,9 @@ const AdminHome = () => {
 
     try {
       setIsLoading(true);
-      
+
       const response = await fetch(
-        "http://localhost:8080/admin/registerStaff",
+        "http://13.50.185.10:8080/admin/registerStaff",
         {
           method: "POST",
           headers: {
@@ -63,12 +63,10 @@ const AdminHome = () => {
       setIsLoading(false);
       setShowAddModal(false);
       if (response.ok) {
-        
-        // Fetch updated staff list and perform any necessary actions...
-        const newStaff = { id: response.id, userName, email }; // Assuming response includes the newly added staff's id
-        setStaffList([...staffList, newStaff]); 
+        const newStaff = { id: response.id, userName, email };
+        setStaffList([...staffList, newStaff]);
         toast.success("👥 Staff added successfully!");
-    
+
         setUserName("");
         setEmail("");
       } else {
@@ -80,27 +78,25 @@ const AdminHome = () => {
     }
   };
 
-  
   const handleDeleteStaff = (staff) => {
     setSelectedStaff(staff);
     setShowDeleteModal(true);
   };
 
-  console.log("hereee aboveee--->",selectedStaff);
+  console.log("hereee aboveee--->", selectedStaff);
 
   const confirmDeleteStaff = async (selectedStaff) => {
     console.log("from selected staff----->", selectedStaff);
     if (selectedStaff !== null) {
       try {
         const response = await fetch(
-          `http://localhost:8080/admin/deleteStaffById/${selectedStaff}`,
+          `http://13.50.185.10:8080/admin/deleteStaffById/${selectedStaff}`,
           {
             method: "DELETE",
           }
         );
-  
+
         if (response.ok) {
-          // Update staff list and perform any necessary actions
           const updatedStaffList = staffList.filter(
             (staff) => staff.id !== selectedStaff
           );
@@ -116,11 +112,9 @@ const AdminHome = () => {
     handleModalClose();
   };
 
-  
-
   return (
     <div className="admin-home-container">
-      <ScrollToTop/>
+      <ScrollToTop />
       <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <img
@@ -212,14 +206,19 @@ const AdminHome = () => {
       {showDeleteModal && (
         <div className="modal-container">
           <div className="modal-content">
-            <p className="modal-text">
-              Are you sure you want to delete ?
-            </p>
+            <p className="modal-text">Are you sure you want to delete ?</p>
             <div className="button-container">
-              <button className="delete-button" onClick={()=>confirmDeleteStaff(selectedStaff)}>
+              <button
+                className="delete-button"
+                onClick={() => confirmDeleteStaff(selectedStaff)}
+              >
                 OK
               </button>
-              <button className="cancell-button" style={{backgroundColor:"#00773b"}} onClick={handleModalClose}>
+              <button
+                className="cancell-button"
+                style={{ backgroundColor: "#00773b" }}
+                onClick={handleModalClose}
+              >
                 Cancel
               </button>
             </div>

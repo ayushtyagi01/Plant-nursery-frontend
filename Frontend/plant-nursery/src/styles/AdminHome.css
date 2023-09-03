@@ -1,21 +1,15 @@
-/* AdminHome.css */
 .admin-home-container {
   padding-left: 130px;
   padding-right: 130PX;
   padding-top: 50px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
-  /* text-align: center; */
 }
-
-
 
 .admin-home-title {
   font-size: 28px;
   font-weight: bold;
-  /* margin-bottom: 20px; */
   color: #333;
 }
 

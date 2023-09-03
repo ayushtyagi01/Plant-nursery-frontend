@@ -51,8 +51,8 @@
     flex-direction: column;
     justify-content: center;
     /* align-items: center; */
-    margin-left: 40px;
-    margin-top: 50px;
+    /* margin-left: 40px; */
+    margin-top: 0px;
   }
 
   .helo-profile{
@@ -252,8 +252,6 @@
 .query-dropdown {
   margin-bottom: 20px;
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 
 .query-dropdown-select {

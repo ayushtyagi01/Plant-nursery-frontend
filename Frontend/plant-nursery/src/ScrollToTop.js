@@ -8,7 +8,7 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0); // Reset scroll position to top
   }, [pathname]);
 
-  return null; // This component doesn't render anything
+  return null; 
 };
 
 export default ScrollToTop;

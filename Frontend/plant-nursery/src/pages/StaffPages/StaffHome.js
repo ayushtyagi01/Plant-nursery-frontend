@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../StaffHome.scss";
+import "../../styles/StaffHome.scss";
 import Loader from "../../Loader";
 import ScrollToTop from "../../ScrollToTop";
 
@@ -21,7 +21,7 @@ const StaffHome = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:8080/getAllProducts")
+    fetch("http://13.50.185.10:8080/getAllProducts")
       .then((response) => response.json())
       .then((data) => setPlantData(data))
       .catch((error) => console.error("Error fetching plant data:", error));
@@ -53,9 +53,11 @@ const StaffHome = () => {
         stockStatus: stockStatus === "true",
       };
 
+      console.log("updateeeeeeplanttt", updateData);
+
       try {
         const response = await fetch(
-          `http://localhost:8080/staff/updateProduct`,
+          `http://13.50.185.10:8080/staff/updateProduct`,
           {
             method: "PATCH",
             headers: {
@@ -66,7 +68,6 @@ const StaffHome = () => {
         );
 
         if (response.ok) {
-          // Update the plantData with the updated information
           const updatedPlantData = plantData.map((plant) => {
             if (plant.id === selectedPlant.id) {
               return {
@@ -108,23 +109,23 @@ const StaffHome = () => {
   const handleAddPlant = async (event) => {
     event.preventDefault();
 
-    
-
     try {
       setIsLoading(true);
 
-      const response = await fetch("http://localhost:8080/staff/addProduct", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPlant),
-      });
+      const response = await fetch(
+        "http://13.50.185.10:8080/staff/addProduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newPlant),
+        }
+      );
 
       setIsLoading(false);
 
       if (response.ok) {
-        // Update the plantData with the new plant
         setPlantData([...plantData, newPlant]);
         closeAddModal();
       } else {
@@ -138,7 +139,7 @@ const StaffHome = () => {
 
   return (
     <div>
-      <ScrollToTop/>
+      <ScrollToTop />
       <div className="staffPlant-container">
         <div
           style={{
@@ -161,13 +162,7 @@ const StaffHome = () => {
         </div>
         <div className="staffPlant-row">
           {plantData.map((plant, index) => (
-            <div
-              className="card  col-6"
-              key={plant?.id}
-              // onClick={() => {
-              //   handleClick(plant);
-              // }}
-            >
+            <div className="card  col-6" key={plant?.id}>
               <div
                 className="bg-image hover-overlay ripple"
                 data-mdb-ripple-color="light"
@@ -190,9 +185,8 @@ const StaffHome = () => {
               </div>
               <div className="card-plant-body">
                 <h2 className="plant-title">{plant?.productName}</h2>
-                <p className="plant-rating">4.9⭐</p>
+                <p className="plant-rating">{plant?.rating}⭐</p>
                 <h5 className="plant-price">{`₹${plant?.price}`}</h5>
-                {/* <p className="card-text">{plant.description}</p> */}
               </div>
             </div>
           ))}
@@ -346,7 +340,7 @@ const StaffHome = () => {
                     border: "1px solid #ccc",
                     borderRadius: "4px",
                     padding: "8px",
-                    width:'60px'
+                    width: "60px",
                   }}
                 >
                   {newPlant.rating}

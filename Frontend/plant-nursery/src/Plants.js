@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSpring, animated } from "react-spring";
 import ScrollToTop from "./ScrollToTop";
 
 const Plants = () => {
@@ -24,7 +23,7 @@ const Plants = () => {
   }, [windowWidth]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/getAllProducts")
+    fetch("http://13.50.185.10:8080/getAllProducts")
       .then((response) => response.json())
       .then((data) => setPlantData(data))
       .catch((error) => console.error("Error fetching plant data:", error));
@@ -55,27 +54,6 @@ const Plants = () => {
   const handleClick = (plant) => {
     setSelectedPlant(plant);
     navigate(`/plantDetails/${plant?.id}`);
-  };
-
-  const searchBarAnimation = useSpring({
-    from: { opacity: 0, transform: "translateX(-20px)" },
-    to: { opacity: 1, transform: "translateX(0)" },
-  });
-
-  // Animation for the sort bar
-  const sortBarAnimation = useSpring({
-    from: { opacity: 0, transform: "translateX(20px)" },
-    to: { opacity: 1, transform: "translateX(0)" },
-  });
-
-  const handleSortBarHover = () => {
-    const fill = document.querySelector(".sort-bar-fill");
-    fill.style.width = "100%";
-  };
-
-  const handleSortBarLeave = () => {
-    const fill = document.querySelector(".sort-bar-fill");
-    fill.style.width = "0%";
   };
 
   return (
@@ -115,49 +93,30 @@ const Plants = () => {
             justifyContent: "space-between",
           }}
         >
-          <animated.div style={searchBarAnimation}>
-            <div
-              className="input-container"
-              style={{ width: "250px", marginLeft: "25px" }}
-            >
-              <input
-                type="text"
-                placeholder="Search for plants..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-            </div>
-          </animated.div>
+          <div
+            className="input-container"
+            style={{ width: "250px", marginLeft: "25px" }}
+          >
+            <input
+              type="text"
+              placeholder="Search for plants..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
 
-          <animated.div style={sortBarAnimation}>
-            <div
-              className="input-container"
-              style={{
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                position: "relative",
-                marginRight: "25px",
-              }}
+          <div className="query-dropdown" style={{ marginRight: "25px" }}>
+            <select
+              className="query-dropdown-select"
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
             >
-              <div className="sort-bar">
-                <div
-                  className="sort-bar-fill"
-                  onMouseOver={handleSortBarHover}
-                  onMouseLeave={handleSortBarLeave}
-                ></div>
-                <select
-                  value={sortType}
-                  onChange={(e) => setSortType(e.target.value)}
-                  style={{ paddingTop: "10px" }}
-                >
-                  <option value="">Sort by</option>
-                  <option value="alphabetically">Alphabetically</option>
-                  <option value="priceLowToHigh">Price - Low to High</option>
-                  <option value="priceHighToLow">Price - High to Low</option>
-                </select>
-              </div>
-            </div>
-          </animated.div>
+              <option value="">Sort by</option>
+              <option value="alphabetically">Alphabetically</option>
+              <option value="priceLowToHigh">Price - Low to High</option>
+              <option value="priceHighToLow">Price - High to Low</option>
+            </select>
+          </div>
         </div>
 
         <div className="plant-row">
@@ -183,7 +142,6 @@ const Plants = () => {
                 <h2 className="plant-title">{plant?.productName}</h2>
                 <p className="plant-rating">{plant?.rating}⭐</p>
                 <h5 className="plant-price">{`₹${plant?.price}`}</h5>
-                {/* <p className="card-text">{plant.description}</p> */}
               </div>
             </div>
           ))}

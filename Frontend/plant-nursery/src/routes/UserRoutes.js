@@ -6,13 +6,11 @@ import UserProfilePage from "../pages/UserPages/UserProfilePage";
 import UserPlantDetails from "../pages/UserPages/UserPlantDetails";
 import UserNavbar from "../pages/UserPages/UserNavbar";
 
-const UserRoutes = ({setRole}) => {
-  // const initialCartItemCount = parseInt(localStorage.getItem("cartItemCount")) || 0;
+const UserRoutes = ({ setRole }) => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartVisible, setCardVisible] = useState(false);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
-  // const userId = userData.id;
 
   useEffect(() => {
     localStorage.setItem("cartItemCount", cartItemCount.toString());

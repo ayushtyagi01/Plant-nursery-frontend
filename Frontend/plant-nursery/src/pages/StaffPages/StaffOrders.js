@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../StaffOrders.css";
+import "../../styles/StaffOrders.css";
 import ScrollToTop from "../../ScrollToTop";
 
 const orderStatusMapping = {
@@ -16,7 +16,7 @@ const StaffOrders = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/staff/updateOrderStatus`,
+        `http://13.50.185.10:8080/staff/updateOrderStatus`,
         {
           method: "PATCH",
           headers: {
@@ -30,7 +30,6 @@ const StaffOrders = () => {
       );
 
       if (response.ok) {
-        // Update the order status in the state
         const updatedOrders = orders.map((order) =>
           order.id === orderId
             ? { ...order, orderStatus: newStatus, editing: false }
@@ -49,7 +48,7 @@ const StaffOrders = () => {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://localhost:8080/staff/getAllOrders`
+          `http://13.50.185.10:8080/staff/getAllOrders`
         );
         if (response.ok) {
           const ordersData = await response.json();
@@ -88,15 +87,23 @@ const StaffOrders = () => {
           {orders.map((order) => (
             <div key={order.id} className="order-card">
               <div className="order-image">
-                <img src={order.product.imageUrl} alt="Product" />
+                <img src={order.product.imageUrl} alt="Product" width={100} />
               </div>
               <div className="order-details">
                 <p className="order-product-name">
                   {order.product.productName}
                 </p>
 
-                <p className="order-label" style={{fontWeight:'bold'}}>Customer Details: </p>
-                <div style={{ display: "flex", gap: "60px", borderBottom:'1px solid #ccc' }}>
+                <p className="order-label" style={{ fontWeight: "bold" }}>
+                  Customer Details:{" "}
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "60px",
+                    borderBottom: "1px solid #ccc",
+                  }}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -118,7 +125,6 @@ const StaffOrders = () => {
                     <span className="order-value">{order.user.id}</span>
                   </div>
                 </div>
-                
 
                 <div style={{ display: "flex", gap: "60px" }}>
                   <div
@@ -163,9 +169,12 @@ const StaffOrders = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <p className="order-label" style={{fontWeight:'bold'}}>Order Status: </p>
+                  <p className="order-label" style={{ fontWeight: "bold" }}>
+                    Order Status:{" "}
+                  </p>
                   <button
                     className="edit-button"
+                    style={{ border: "none", background: "none" }}
                     onClick={() => {
                       const updatedOrders = orders.map((o) =>
                         o.id === order.id

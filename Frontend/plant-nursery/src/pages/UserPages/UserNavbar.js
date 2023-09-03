@@ -1,36 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "../../Navbar.css";
+import React from "react";
+import "../../styles/Navbar.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserNavbar = ({ onCartIconClick }) => {
-  // const [cartItemsData, setCartItemsData] = useState([]);
-  // const userData = JSON.parse(localStorage.getItem("userData"));
-  // const userId = userData.id;
-
   const navigate = useNavigate();
   const location = useLocation();
-
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:8080/customer/getFromCart/${userId}`
-  //       );
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setCartItemsData(data);
-  //       } else {
-  //         console.error("Failed to fetch cart items.");
-  //       }
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //     }
-  //   };
-
-  //   fetchCartItems();
-  // }, []);
-
-  // console.log("lengthhhhh----->", cartItemsData.length)
 
   return (
     <div>
@@ -44,20 +18,27 @@ const UserNavbar = ({ onCartIconClick }) => {
 
             <div className="navBar-nav">
               <a
-                className={`nav-link ${location.pathname === "/userHome" ? "active" : ""}`}
+                className={`nav-link ${
+                  location.pathname === "/userHome" ? "active" : ""
+                }`}
                 aria-current="page"
                 href="/userHome"
               >
                 Home
               </a>
-              <a className={`nav-link ${location.pathname === "/userPlants" ? "active" : ""}`} href="/userPlants">
+              <a
+                className={`nav-link ${
+                  location.pathname === "/userPlants" ? "active" : ""
+                }`}
+                href="/userPlants"
+              >
                 Plants
               </a>
             </div>
           </div>
           <div className="d-flex align-items-center ">
             <img
-            className="profile-image"
+              className="profile-image"
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}
               alt="Profile Icon"
@@ -67,13 +48,12 @@ const UserNavbar = ({ onCartIconClick }) => {
             />
             <div className="cart-icon ">
               <img
-              className="cart-image"
+                className="cart-image"
                 src="https://cdn-icons-png.flaticon.com/128/9485/9485826.png"
                 style={{ width: "30px", cursor: "pointer" }}
                 alt="Cart Icon"
                 onClick={onCartIconClick}
               />
-              
             </div>
           </div>
         </div>

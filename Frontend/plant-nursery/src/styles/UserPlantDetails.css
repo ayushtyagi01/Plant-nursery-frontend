@@ -142,16 +142,15 @@
   }
   
   .in-stock {
-    background-color: #f0ad4e; /* Yellow for In Stock */
+    background-color: #f0ad4e; 
     color: white;
   }
   
   .out-of-stock {
-    background-color: #ccc; /* Grey for Out of Stock */
+    background-color: #ccc; 
     color: #555;
   }
   
-  /* Disable Add to Cart Button Styles */
   .add-to-cart-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;

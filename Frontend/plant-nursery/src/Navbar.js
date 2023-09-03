@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NavbarGen.scss";
+import "./styles/NavbarGen.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -17,18 +17,33 @@ const Navbar = () => {
       <nav className="navbar navbar-fixed ">
         <div className="container-fluid">
           <div className="d-flex align-items-center">
-            <img src="https://see.fontimg.com/api/renderfont4/BXew/eyJyIjoiZnMiLCJoIjoxMTcsInciOjE1MDAsImZzIjo3OCwiZmdjIjoiIzBFOUYyQiIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/cHJha3JpdGk/samarkan-oblique.png" width={120}/>
+            <img
+              src="https://see.fontimg.com/api/renderfont4/BXew/eyJyIjoiZnMiLCJoIjoxMTcsInciOjE1MDAsImZzIjo3OCwiZmdjIjoiIzBFOUYyQiIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/cHJha3JpdGk/samarkan-oblique.png"
+              width={120}
+            />
             <div className="navBar-nav">
-              <a  className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" href="/">
+              <a
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+                aria-current="page"
+                href="/"
+              >
                 Home
               </a>
-              <a  className={`nav-link ${location.pathname === "/plants" ? "active" : ""}`} href="/plants">
+              <a
+                className={`nav-link ${
+                  location.pathname === "/plants" ? "active" : ""
+                }`}
+                href="/plants"
+              >
                 Plants
               </a>
             </div>
           </div>
-          <div className="d-flex align-items-center profile-image">
+          <div className="d-flex align-items-center ">
             <img
+            className="profile-image"
               src="https://cdn-icons-png.flaticon.com/128/5582/5582872.png"
               style={{ width: "30px", cursor: "pointer" }}
               alt="Profile Icon"

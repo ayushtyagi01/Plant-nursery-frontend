@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../UserProfilePage.css";
+import "../../styles/UserProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import UserCart from "./UserCart";
 import ScrollToTop from "../../ScrollToTop";
@@ -9,7 +9,7 @@ const UserProfilePage = ({
   cartVisible,
   cartItemCount,
   onClose,
-  setRole
+  setRole,
 }) => {
   const [selectedTab, setSelectedTab] = useState("profile");
   const [orders, setOrders] = useState([]);
@@ -35,7 +35,7 @@ const UserProfilePage = ({
               marginBottom: "30px",
             }}
           >
-            Profile
+            Your Profile
           </h1>
           <div className="profile-table">
             <div className="helo-profile">
@@ -50,15 +50,15 @@ const UserProfilePage = ({
             </div>
             <div className="profile-details">
               <div className="details-container">
-                <p>Name</p>
+                <p>Name:</p>
                 <h2>{userData.userName}</h2>
               </div>
               <div className="details-container">
-                <p>Email</p>
+                <p>Email:</p>
                 <h2>{userData.email}</h2>
               </div>
               <div className="details-container">
-                <p>Role</p>
+                <p>Role:</p>
                 <h2>You are a {userData.role}.</h2>
               </div>
             </div>
@@ -75,7 +75,7 @@ const UserProfilePage = ({
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://localhost:8080/customer/getOrders/${userData.id}`
+          `http://13.50.185.10:8080/customer/getOrders/${userData.id}`
         );
         if (response.ok) {
           const ordersData = await response.json();
@@ -109,7 +109,7 @@ const UserProfilePage = ({
           {orders.map((order) => (
             <div key={order.id} className="order-card">
               <div className="order-image">
-                <img src={order.product.imageUrl} alt="Product" />
+                <img src={order.product.imageUrl} alt="Product" width={150} />
               </div>
               <div className="order-details">
                 <p className="order-product-name">
@@ -139,8 +139,6 @@ const UserProfilePage = ({
                 </div>
                 <p className="order-label">Type of Delivery: </p>
                 <span className="order-value">{order.type}</span>
-                <p className="order-label">Order Status: </p>
-                <span className="order-value">{order.orderStatus} . . .</span>
                 {order.address && (
                   <>
                     <p className="order-label">Address: </p>
@@ -153,6 +151,8 @@ const UserProfilePage = ({
                     <span className="order-value">{order.dateAndTime}</span>
                   </>
                 )}
+                <p className="order-label">Order Status: </p>
+                <span className="order-value">{order.orderStatus} . . .</span>
               </div>
             </div>
           ))}
@@ -171,7 +171,7 @@ const UserProfilePage = ({
     async function fetchUserResQueries() {
       try {
         const response = await fetch(
-          `http://localhost:8080/customer/getUserQueries/true/${userData.id}`
+          `http://13.50.185.10:8080/customer/getUserQueries/true/${userData.id}`
         );
         if (response.ok) {
           const queriesData = await response.json();
@@ -190,7 +190,7 @@ const UserProfilePage = ({
     async function fetchUserUnresQueries() {
       try {
         const response = await fetch(
-          `http://localhost:8080/customer/getUserQueries/false/${userData.id}`
+          `http://13.50.185.10:8080/customer/getUserQueries/false/${userData.id}`
         );
         if (response.ok) {
           const queriesData = await response.json();
@@ -213,20 +213,21 @@ const UserProfilePage = ({
     }
 
     try {
-      const response = await fetch("http://localhost:8080/customer/postQuery", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: userData.id,
-          queryDesc: newQuery,
-        }),
-      });
+      const response = await fetch(
+        "http://13.50.185.10:8080/customer/postQuery",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: userData.id,
+            queryDesc: newQuery,
+          }),
+        }
+      );
 
       if (response.ok) {
-        // Successfully posted query
-        // Clear the text area
         setNewQuery("");
         console.log("Query submitted successfully");
       } else {
@@ -327,7 +328,7 @@ const UserProfilePage = ({
 
   return (
     <div>
-      <ScrollToTop/>
+      <ScrollToTop />
       <div className="page-container">
         <div className="side-navbar">
           <table>
@@ -371,7 +372,7 @@ const UserProfilePage = ({
                       style={{ width: "40px" }}
                     />
                     <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                      Your Orders
+                      Orders
                     </p>
                   </div>
                 </td>
@@ -393,7 +394,7 @@ const UserProfilePage = ({
                       style={{ width: "40px" }}
                     />
                     <p style={{ fontWeight: "bold", fontSize: "16px" }}>
-                      Your Queries
+                      Queries
                     </p>
                   </div>
                 </td>

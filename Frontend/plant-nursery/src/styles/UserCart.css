@@ -1,19 +1,19 @@
-/* UserCart.css */
 .user-cart-container {
     position: fixed;
     top: 0;
-    right: -400px; /* Start off-screen */
+    right: -400px; 
     width: 400px;
     height: 100%;
     background-color: white;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    transition: right 0.3s ease-in-out;
-    overflow-y: auto; /* Add scrollbar for overflow */
+    transition: transform 3s ease-in-out;
+    overflow-y: auto; 
   }
   
   .user-cart-container.open {
-    right: 0;
+    transform: translateX(20);
+    right:0;
   }
   
   .cart-header {

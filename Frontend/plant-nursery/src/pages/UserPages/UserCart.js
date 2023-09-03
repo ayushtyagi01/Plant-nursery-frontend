@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../UserCart.css";
+import "../../styles/UserCart.css";
 
-const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
+const UserCart = ({ setCartItemCount, onClose }) => {
   const [cartItemsData, setCartItemsData] = useState([]);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userId = userData.id;
@@ -62,7 +62,7 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
     const fetchCartItems = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/customer/getFromCart/${userId}`
+          `http://13.50.185.10:8080/customer/getFromCart/${userId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -76,21 +76,20 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
     };
 
     fetchCartItems();
-  }, [cartItemCount]);
+  }, [cartItemsData]);
 
   console.log("from cart------->", cartItemsData);
 
   const handleRemoveFromCart = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/customer/removeFromCart/${userId}/${productId}`,
+        `http://13.50.185.10:8080/customer/removeFromCart/${userId}/${productId}`,
         {
           method: "DELETE",
         }
       );
 
       if (response.ok) {
-        // Update cart items data and perform any necessary actions
         const updatedCartItems = cartItemsData.filter(
           (item) => item.product.id !== productId
         );
@@ -119,18 +118,20 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
         address: address,
       }));
 
-      const response = await fetch("http://localhost:8080/customer/addOrders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
+      const response = await fetch(
+        "http://13.50.185.10:8080/customer/addOrders",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
 
       if (response.ok) {
-        // Clear cart or perform other actions upon successful order placement
         const cartDeleteResponse = await fetch(
-          `http://localhost:8080/customer/deleteCart/${userId}`,
+          `http://13.50.185.10:8080/customer/deleteCart/${userId}`,
           {
             method: "DELETE",
           }
@@ -169,7 +170,7 @@ const UserCart = ({ cartItemCount, setCartItemCount, onClose }) => {
       <ToastContainer theme="light" autoClose={2900} hideProgressBar />
       <div className="user-cart-container open">
         <div className="cart-header">
-          <h2>Your Cart</h2>
+          <h2 style={{ fontSize: "21px" }}>Your Cart</h2>
           <span className="close-icon" onClick={onClose}>
             ×
           </span>

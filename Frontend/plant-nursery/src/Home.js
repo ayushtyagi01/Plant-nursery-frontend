@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <div style={{ paddingTop: "55px" }}>
-        <ScrollToTop/>
+        <ScrollToTop />
         <CarouselComp />
         <CardsHome />
       </div>

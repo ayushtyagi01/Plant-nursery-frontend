@@ -1,5 +1,5 @@
 import React from "react";
-import "./CardsHome.css";
+import "./styles/CardsHome.css";
 import plantsData from "./plantsData";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,9 @@ const CardsHome = () => {
     <div>
       <div className="intro-section">
         <h2 className="section-heading">Welcome to Plant Nursery</h2>
-        <h1 style={{ fontWeight: "bold", fontSize:'1.44em', color:"#1D965A" }}>
+        <h1
+          style={{ fontWeight: "bold", fontSize: "1.44em", color: "#1D965A" }}
+        >
           "Experience the magic of growing plants"
         </h1>
         <p className="section-text">
@@ -24,7 +26,9 @@ const CardsHome = () => {
           alt="icon"
           width={40}
         />
-        <h1 style={{ fontWeight: "bold", fontSize: '35px' }}>Featured Plants</h1>
+        <h1 style={{ fontWeight: "bold", fontSize: "35px" }}>
+          Featured Plants
+        </h1>
       </div>
       <div className="card-row">
         {plantsData.map((plant, index) => (
@@ -41,10 +45,17 @@ const CardsHome = () => {
         <div className="gif-div">
           <img src="https://www.ugaoo.com/cdn/shop/files/Subscription_Stop_Motion.gif?v=1666090774&width=500" />
           <div className="gif-items">
-          <p className="gif-text">
-            Shop now and explore our collection of plants and gardening tools.
-          </p>
-          <button className="gif-button" onClick={()=> {navigate("/plants")}}>SHOP NOW</button>
+            <p className="gif-text">
+              Shop now and explore our collection of plants and gardening tools.
+            </p>
+            <button
+              className="gif-button"
+              onClick={() => {
+                navigate("/plants");
+              }}
+            >
+              SHOP NOW
+            </button>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ const StaffQueries = () => {
     async function fetchUserQueries() {
       try {
         const response = await fetch(
-          `http://localhost:8080/staff/getAllQueries`
+          `http://13.50.185.10:8080/staff/getAllQueries`
         );
         if (response.ok) {
           const queriesData = await response.json();
@@ -28,7 +28,7 @@ const StaffQueries = () => {
 
   const handleAnswerSubmit = async (queryId, queryAnswer) => {
     try {
-      const response = await fetch(`http://localhost:8080/staff/answer`, {
+      const response = await fetch(`http://13.50.185.10:8080/staff/answer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,6 @@ const StaffQueries = () => {
       });
 
       if (response.ok) {
-        // Update the query with the new answer
         const updatedQueries = queries.map((query) =>
           query.id === queryId
             ? { ...query, queryAnswer, queryStatus: true }
@@ -57,7 +56,7 @@ const StaffQueries = () => {
 
   return (
     <div>
-      <ScrollToTop/>
+      <ScrollToTop />
       <div className="staffPlant-container">
         <div
           style={{
