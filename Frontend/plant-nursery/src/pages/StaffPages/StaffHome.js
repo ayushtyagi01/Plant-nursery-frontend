@@ -21,7 +21,7 @@ const StaffHome = () => {
   });
 
   useEffect(() => {
-    fetch("http://13.50.185.10:8080/getAllProducts")
+    fetch("http://40.76.185.35:8080/getAllProducts")
       .then((response) => response.json())
       .then((data) => setPlantData(data))
       .catch((error) => console.error("Error fetching plant data:", error));
@@ -57,7 +57,7 @@ const StaffHome = () => {
 
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/staff/updateProduct`,
+          `http://40.76.185.35:8080/staff/updateProduct`,
           {
             method: "PATCH",
             headers: {
@@ -113,7 +113,7 @@ const StaffHome = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        "http://13.50.185.10:8080/staff/addProduct",
+        "http://40.76.185.35:8080/staff/addProduct",
         {
           method: "POST",
           headers: {

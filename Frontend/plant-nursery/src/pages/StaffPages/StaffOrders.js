@@ -16,7 +16,7 @@ const StaffOrders = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `http://13.50.185.10:8080/staff/updateOrderStatus`,
+        `http://40.76.185.35:8080/staff/updateOrderStatus`,
         {
           method: "PATCH",
           headers: {
@@ -48,7 +48,7 @@ const StaffOrders = () => {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/staff/getAllOrders`
+          `http://40.76.185.35:8080/staff/getAllOrders`
         );
         if (response.ok) {
           const ordersData = await response.json();

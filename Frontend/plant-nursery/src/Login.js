@@ -31,7 +31,7 @@ const Login = ({ setRole }) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch("http://13.50.185.10:8080/login", {
+      const response = await fetch("http://40.76.185.35:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

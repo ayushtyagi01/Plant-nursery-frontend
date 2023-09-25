@@ -62,7 +62,7 @@ const UserCart = ({ setCartItemCount, onClose }) => {
     const fetchCartItems = async () => {
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/customer/getFromCart/${userId}`
+          `http://40.76.185.35:8080/customer/getFromCart/${userId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -83,7 +83,7 @@ const UserCart = ({ setCartItemCount, onClose }) => {
   const handleRemoveFromCart = async (productId) => {
     try {
       const response = await fetch(
-        `http://13.50.185.10:8080/customer/removeFromCart/${userId}/${productId}`,
+        `http://40.76.185.35:8080/customer/removeFromCart/${userId}/${productId}`,
         {
           method: "DELETE",
         }
@@ -119,7 +119,7 @@ const UserCart = ({ setCartItemCount, onClose }) => {
       }));
 
       const response = await fetch(
-        "http://13.50.185.10:8080/customer/addOrders",
+        "http://40.76.185.35:8080/customer/addOrders",
         {
           method: "POST",
           headers: {
@@ -131,7 +131,7 @@ const UserCart = ({ setCartItemCount, onClose }) => {
 
       if (response.ok) {
         const cartDeleteResponse = await fetch(
-          `http://13.50.185.10:8080/customer/deleteCart/${userId}`,
+          `http://40.76.185.35:8080/customer/deleteCart/${userId}`,
           {
             method: "DELETE",
           }

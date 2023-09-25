@@ -40,7 +40,7 @@ const StaffNavbar = ({ setRole }) => {
 
     try {
       const response = await fetch(
-        "http://13.50.185.10:8080/staff/resetPassword",
+        "http://40.76.185.35:8080/staff/resetPassword",
         {
           method: "PATCH",
           headers: {

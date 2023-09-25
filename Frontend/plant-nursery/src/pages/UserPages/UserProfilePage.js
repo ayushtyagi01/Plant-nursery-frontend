@@ -75,7 +75,7 @@ const UserProfilePage = ({
     async function fetchOrders() {
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/customer/getOrders/${userData.id}`
+          `http://40.76.185.35:8080/customer/getOrders/${userData.id}`
         );
         if (response.ok) {
           const ordersData = await response.json();
@@ -171,7 +171,7 @@ const UserProfilePage = ({
     async function fetchUserResQueries() {
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/customer/getUserQueries/true/${userData.id}`
+          `http://40.76.185.35:8080/customer/getUserQueries/true/${userData.id}`
         );
         if (response.ok) {
           const queriesData = await response.json();
@@ -190,7 +190,7 @@ const UserProfilePage = ({
     async function fetchUserUnresQueries() {
       try {
         const response = await fetch(
-          `http://13.50.185.10:8080/customer/getUserQueries/false/${userData.id}`
+          `http://40.76.185.35:8080/customer/getUserQueries/false/${userData.id}`
         );
         if (response.ok) {
           const queriesData = await response.json();
@@ -214,7 +214,7 @@ const UserProfilePage = ({
 
     try {
       const response = await fetch(
-        "http://13.50.185.10:8080/customer/postQuery",
+        "http://40.76.185.35:8080/customer/postQuery",
         {
           method: "POST",
           headers: {
