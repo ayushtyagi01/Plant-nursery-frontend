@@ -29,7 +29,7 @@ const Navbar = () => {
                 aria-current="page"
                 href="/"
               >
-                Home
+                Home1
               </a>
               <a
                 className={`nav-link ${
