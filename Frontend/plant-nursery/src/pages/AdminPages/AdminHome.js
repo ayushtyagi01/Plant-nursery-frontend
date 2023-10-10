@@ -25,7 +25,7 @@ const AdminHome = () => {
     async function fetchStaffList() {
       try {
         const response = await fetch(
-          "http://40.76.185.35:8080/admin/showStaffUsersForAdmin"
+          "http://74.235.203.74:8081/admin/showStaffUsersForAdmin"
         );
         if (response.ok) {
           const staffData = await response.json();
@@ -50,7 +50,7 @@ const AdminHome = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        "http://40.76.185.35:8080/admin/registerStaff",
+        "http://74.235.203.74:8081/admin/registerStaff",
         {
           method: "POST",
           headers: {
@@ -90,7 +90,7 @@ const AdminHome = () => {
     if (selectedStaff !== null) {
       try {
         const response = await fetch(
-          `http://40.76.185.35:8080/admin/deleteStaffById/${selectedStaff}`,
+          `http://74.235.203.74:8081/admin/deleteStaffById/${selectedStaff}`,
           {
             method: "DELETE",
           }

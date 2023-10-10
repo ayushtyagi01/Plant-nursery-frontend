@@ -22,7 +22,7 @@ const UserPlantDetails = ({
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    fetch(`http://40.76.185.35:8080/getProductById/${id}`)
+    fetch(`http://74.235.203.74:8081/getProductById/${id}`)
       .then((response) => response.json())
       .then((data) => setPlant(data))
       .catch((error) => console.error("Error fetching plant data:", error));
@@ -51,7 +51,7 @@ const UserPlantDetails = ({
 
     try {
       const response = await fetch(
-        "http://40.76.185.35:8080/customer/addToCart",
+        "http://74.235.203.74:8081/customer/addToCart",
         {
           method: "POST",
           headers: {

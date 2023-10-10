@@ -12,7 +12,7 @@ const PlantDetails = () => {
   console.log("the iddddd", id);
 
   useEffect(() => {
-    fetch(`http://40.76.185.35:8080/getProductById/${id}`)
+    fetch(`http://74.235.203.74:8081/getProductById/${id}`)
       .then((response) => response.json())
       .then((data) => setPlant(data))
       .catch((error) => console.error("Error fetching plant data:", error));
